@@ -36,8 +36,10 @@ html(lang='en')
       .container
 
     
-    .right__menu.none
-      a.close(href='javascript:;')
+    .right__menu
+      .bock__top
+        a.close(href='javascript:;')
+          img.logo__img(src='img/close.svg', alt='logo_black')
       ul.menu__
         li
           a(href='javascript:;') Recently Added
@@ -70,7 +72,7 @@ html(lang='en')
 
                 
             .box__
-              .system_user
+              .system_user.none
                 .box__avatar
                   img.logo__img(src='img/avatar.png', alt='user')
                 span.name(title="Alex Magamedov Alex Magamedov Alex Magamedov") Alex Magamedov
@@ -88,11 +90,11 @@ html(lang='en')
                     
                 
 
-              a.sandy_brown(href='javascript:;') Login
+              a.sandy_brown.none(href='javascript:;') Login
               a.help(href='javascript:;') Need help ?
 
                 
-            a.mobile__.none(href='javascript:;')
+            a.mobile__(href='javascript:;')
               img.menu__img(src='img/menu.svg', alt='menu')
 
           
@@ -401,71 +403,77 @@ html(lang='en')
           .col.m12.s12.l4.xl4
             ul.menu__item.qi_library
               li
+                a.active(href='javascript:;', data-item='1') QI TALK
+              li
+                a(href='javascript:;', data-item='2') Heart of wisdom 
+              hr
+
+              li
                 a.logout(href='javascript:;', data-item='8') Logout
 
           .col.m12.s12.l8.xl8
             .conteiner__qi_library
-              h3.title Free Access to Everyone!
+              .qi_takl.active
+                h3.title Free Access to Everyone!
 
-              ul.post__
-                li
-                  .box__img
-                    a(href='javascript:;')
-                      img.images(src='img/account__1_post.png', alt='account__1_post')
+                ul.post__
+                  li
+                    .box__img
+                      a(href='javascript:;')
+                        img.images(src='img/account__1_post.png', alt='account__1_post')
 
-                  .box__content
-                    h4.title_post 
-                      a(href='javascript:;') Pellentesque leo.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
-                li
-                  .box__img
-                    a(href='javascript:;')
-                      img.images(src='img/account__1_post.png', alt='account__1_post')
+                    .box__content
+                      h4.title_post 
+                        a(href='javascript:;') Pellentesque leo.
+                      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
+                  li
+                    .box__img
+                      a(href='javascript:;')
+                        img.images(src='img/account__1_post.png', alt='account__1_post')
 
-                  .box__content
-                    h4.title_post 
-                      a(href='javascript:;') Pellentesque leo.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
-                li
-                  .box__img
-                    a(href='javascript:;')
-                      img.images(src='img/account__1_post.png', alt='account__1_post')
+                    .box__content
+                      h4.title_post 
+                        a(href='javascript:;') Pellentesque leo.
+                      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
+                  li
+                    .box__img
+                      a(href='javascript:;')
+                        img.images(src='img/account__1_post.png', alt='account__1_post')
 
-                  .box__content
-                    h4.title_post 
-                      a(href='javascript:;') Pellentesque leo.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
-                li
-                  .box__img
-                    a(href='javascript:;')
-                      img.images(src='img/account__1_post.png', alt='account__1_post')
+                    .box__content
+                      h4.title_post 
+                        a(href='javascript:;') Pellentesque leo.
+                      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
+                  li
+                    .box__img
+                      a(href='javascript:;')
+                        img.images(src='img/account__1_post.png', alt='account__1_post')
 
-                  .box__content
-                    h4.title_post 
-                      a(href='javascript:;') Pellentesque leo.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
-                li
-                  .box__img
-                    a(href='javascript:;')
-                      img.images(src='img/account__1_post.png', alt='account__1_post')
+                    .box__content
+                      h4.title_post 
+                        a(href='javascript:;') Pellentesque leo.
+                      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
+                  li
+                    .box__img
+                      a(href='javascript:;')
+                        img.images(src='img/account__1_post.png', alt='account__1_post')
 
-                  .box__content
-                    h4.title_post 
-                      a(href='javascript:;') Pellentesque leo.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
-                li
-                  .box__img
-                    a(href='javascript:;')
-                      img.images(src='img/account__1_post.png', alt='account__1_post')
+                    .box__content
+                      h4.title_post 
+                        a(href='javascript:;') Pellentesque leo.
+                      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
+                  li
+                    .box__img
+                      a(href='javascript:;')
+                        img.images(src='img/account__1_post.png', alt='account__1_post')
 
-                  .box__content
-                    h4.title_post 
-                      a(href='javascript:;') Pellentesque leo.
-                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
+                    .box__content
+                      h4.title_post 
+                        a(href='javascript:;') Pellentesque leo.
+                      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mus nec ...
           
-              
-              
-              
+              .heart_of_wisdom
+                h3.title Heart of wisdom
           
 
   

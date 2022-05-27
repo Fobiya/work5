@@ -54,6 +54,19 @@ $('.event__1 .my_items>li>a').click(function(){
   $('.event__1>.container:nth-child(2)>.row:nth-child(2)>div:nth-child(2)>div.conteiner__my_items>div:nth-child(' + num_top + ')').addClass('active');
   
   
+ });  
+  
+$('.event__1 .qi_library>li>a').click(function(){
+
+      var num_top = $(this).data('item');  
+  $('.event__1 .qi_library>li>a').removeClass('active');
+   $(this).addClass('active');
+  
+  $('.event__1>.container:nth-child(2)>.row:nth-child(3)>div:nth-child(2)>div.conteiner__qi_library>div').removeClass('active');
+  
+  $('.event__1>.container:nth-child(2)>.row:nth-child(3)>div:nth-child(2)>div.conteiner__qi_library>div:nth-child(' + num_top + ')').addClass('active');
+  
+  
  });
   
   
@@ -224,7 +237,7 @@ $('.help').click(function(){
 
 
     $(function() {
-        $('.menu').click(function() {
+        $('.mobile__').click(function() {
             $('.right__menu').addClass('open');
             $('body').addClass('open__menu');
         });
@@ -242,12 +255,13 @@ $('.help').click(function(){
 
 
 
-    $('.right__menu li a').click(function() {
+    $('.close').click(function() {
 
       $(".right__menu").removeClass("open");
             $('body').removeClass("open__menu");
     });
-    $('.right__menu').click(function() {
+  
+    $('.mobile__').click(function() {
 
       $(".right__menu").removeClass("open");
             $('body').removeClass("open__menu");
