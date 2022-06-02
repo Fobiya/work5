@@ -851,6 +851,76 @@ for(let div of document.querySelectorAll('footer')){
 //            }
 //        ]
     });
+  
+  
+  
+  
+      $('.home__6 .next__').click(function() { 
+    $single__slider.slick('slickNext');
+  });
+ 
+  $('.home__6  .prev__').click(function() {
+    $single__slider.slick('slickPrev');
+  });
+    
+    
+  var $single__slider = $('.single__slider');
+  
+  
+
+    $single__slider.slick({
+//        fade: true,
+//        cssEase: 'linear',
+      
+        arrows: false,
+        dots: false,
+      
+        autoplay: false,
+        speed: 1000,
+      
+        infinite: true,
+      
+        adaptiveHeight: true,
+      
+        slidesToShow: 1,
+        slidesToScroll: 1,
+
+        fade: true,
+        asNavFor: '.single__smoll_slider'
+    });
+  
+  $('.single__smoll_slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    asNavFor: '.single__slider',
+    dots: true,
+    focusOnSelect: true,
+    arrows: false,
+    dots: false,
+
+  });
+  
+  
+  
+      $('.testimonials_slider').slick({
+//        fade: true,
+//        cssEase: 'linear',
+      
+        arrows: false,
+        dots: false,
+      
+        autoplay: false,
+        speed: 1000,
+      
+        infinite: true,
+      
+        adaptiveHeight: true,
+      
+        slidesToShow: 1,
+        slidesToScroll: 1,
+
+    });
+
 
 
 // =========================================================== 

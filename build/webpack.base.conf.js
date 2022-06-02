@@ -202,6 +202,11 @@ module.exports = {
       hash: false,
       template: `${PATHS.src}/shop.pug`,
       filename: './shop.html'
+    }),  
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/single.pug`,
+      filename: './single.html'
     }),        
 //    new HtmlWebpackPlugin({
 //      hash: false,
