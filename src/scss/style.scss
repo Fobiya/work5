@@ -742,6 +742,15 @@ background: linear-gradient(0deg, #F7A269, #F7A269), #E55D45;
 // ===========================================================
 
     header{
+      
+      .mobile__{
+        @include wid(1200)  { display: none }
+      }
+      
+      
+      .system_user,.help{
+        @include wid(991)  {  display: none !important; }
+      }
 
 
       
@@ -1230,12 +1239,12 @@ backdrop-filter: blur(29.33px);
 
         background: rgba(255, 255, 255, 0.093);
         box-shadow: inset 69.8333px -69.8333px 69.8333px rgba(149, 149, 149, 0.093), inset -69.8333px 69.8333px 69.8333px rgba(255, 255, 255, 0.093);
-        backdrop-filter: blur(29.33px);
+        backdrop-filter: blur(5px);
         border-bottom: 1px solid  rgba(149, 149, 149, 0.3);
 
-@include wid(992)      {   padding: 15px 0; }
-@include wid(991)  {  padding: 15px 0; }
-      
+  @include wid(992)      {   padding: 15px 0; }
+  @include wid(991)  {  padding: 15px 0; }
+
       
       .row>div{
         display: flex;
@@ -5103,14 +5112,15 @@ section.shop__1{
 
     @include wid(992)      { padding: 187px 0  160px 0; }
 
-    @include wid(601-991)  { padding: 227px 0  120px 0; }
+    @include wid(601-991)  { padding: 187px 0  120px 0; }
     @include wid(600)      { padding: 176px 0  80px 0; }           
          
 
   .container>.row:nth-child(1){
-    @include wid(992)      {  margin-bottom: 157px;  }
-    @include wid(601-991)  {  margin-bottom: 80px;  }
-    @include wid(600)      {  margin-bottom: 120px;  }  
+
+    @include wid(992)      {  margin-bottom: 160px;  }
+    @include wid(601-991)  {  margin-bottom: 120px;  }
+    @include wid(600)      {  margin-bottom: 80px;  }  
 
   }
 
@@ -5123,8 +5133,8 @@ section.shop__1{
 
   .container>.row:nth-child(3){
     @include wid(992)      {  }
-    @include wid(601-991)  { padding: 70px 0; }
-    @include wid(600)      { padding: 50px 0; }
+    @include wid(601-991)  {  &>div{ margin-bottom: 60px; }  }
+    @include wid(600)      {  &>div{ margin-bottom: 50px; } }
 
   }
 
@@ -5147,9 +5157,12 @@ section.shop__1{
         letter-spacing: .025em;
         
 
-        @include wid(992)  {  font: 700 96px/1em var(--r); margin-top: 75px; margin-bottom: 30px; }
-        @include wid(601-991)  {  font: 700 64px/1em var(--r);  }
-        @include wid(600)  {  font: 700 44px/1em var(--r); }
+        @include wid(1500px)  {  font: 700 96px/1em var(--r); margin-top: 75px; margin-bottom: 30px; }
+        @include wid(1200-1499)  {  font: 700 70px/1em var(--r); margin-top: 75px; margin-bottom: 30px; }
+        @include wid(992-1199)  {  font: 700 60px/1em var(--r);  margin-bottom: 30px; }
+        @include wid(992)  {  font: 700 50px/1em var(--r);  margin-bottom: 30px; }
+        @include wid(601-991)  {  font: 700 50px/1em var(--r);  margin-bottom: 30px; }
+        @include wid(600)  {  font: 700 44px/1em var(--r);  margin-bottom: 30px; }
      }
 
    .sub{
@@ -5191,8 +5204,9 @@ section.shop__1{
       display: block;
       margin-left: auto;
       
-        @include wid(992) { width: 748px;   min-width: 748px; height: inherit; float: left; }
-
+      @include wid(1200) { width: 748px;   min-width: 748px; height: inherit; float: left; }
+      @include wid(992-1199)  {  margin-right: -10%; } 
+   @include wid(991) {  margin-right: -10%; } 
     }
   }
 
@@ -5214,8 +5228,40 @@ section.shop__1{
       z-index: 2;
     }
 
-    @include wid(992)  {  position: absolute;  top: 445px; right: -155px;  }
+    @include wid(1500)  {  position: absolute;  top: 445px; right: -155px;  }
+    @include wid(1200-1499)  {  position: absolute;  top: 445px; right: 0;  }
+    @include wid(992-1199)  {  position: relative;
+      &:before{ display: none; } 
+      
+                  background: rgba(168, 47, 26, .74);
+            //    background: rgba(229, 93, 69, 0.46);
 
+            backdrop-filter: blur(5px);
+            padding-right: 30px;
+          max-width: 500px;
+      margin: 0 auto;
+            margin-top: -200px;
+      
+    
+    }
+    @include wid(991) { position: relative;
+      
+                  background: rgba(168, 47, 26, .74);
+            //    background: rgba(229, 93, 69, 0.46);
+
+            backdrop-filter: blur(5px);
+      padding-right: 30px;
+           margin: 0 auto;
+      
+    margin-top: -100px;
+      
+             max-width: 700px;
+          max-height:  inherit;
+    
+        &:before{ display: none; } 
+    }
+    
+    @include wid(600) {  padding: 25px 16px; }
 
         p{
             font: 300 20px/1.45em var(--l);
@@ -5225,7 +5271,7 @@ section.shop__1{
         &:before{
           @extend %bef-aft;
 
-            background: rgba(160, 34, 12, .5);
+            background: rgba(168, 47, 26, .74);
             //    background: rgba(229, 93, 69, 0.46);
 
             backdrop-filter: blur(5px);
@@ -5529,12 +5575,16 @@ section.shop__3{
     position: relative;
     padding-left: 10px;
     
-    ul{
+        max-width: 360px;
+    
+    width: 100%;
+    
+    &>ul{
           position: relative;
-      li{
+      &>li{
             position: relative;
         margin-bottom: 10px;
-        a{
+        &>a{
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -5581,6 +5631,19 @@ section.shop__3{
             }
           
         }
+        
+        &>ul{
+          border-top: 1px solid #E0D9D4;
+            &>li{
+              
+              a{
+                
+              }
+              
+          }
+          
+        }
+        
       }
     }
   }

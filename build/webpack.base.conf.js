@@ -49,9 +49,11 @@ module.exports = {
             loader: 'url-loader',
             loader: 'file-loader',
             options: { 
-                limit: 8000, // Convert images < 8kb to base64 strings
+                limit: 13192, // Convert images < 8kb to base64 strings
 //                name: 'img/[hash].[ext]'
-                name: 'img/[name].[ext]',
+              
+//             filename: `${PATHS.assets}img/[name].webp`,
+                name: 'img/[name].webp',
              publicPath: '../',
           outputPath:'',
           useRelativePath: true
@@ -76,38 +78,39 @@ module.exports = {
                   interlaced: false,
                 }
           }
-         } ]
+         }]
       },
       //File loader used to load fonts
             
-            
-    {
-      // Match woff2 in addition to patterns like .woff?v=1.1.1.
-      test: /\.(svg)(\?v=\d+\.\d+\.\d+)?$/,
-      use: {
-        loader: "url-loader",
-//        loader: "file-loader",
-                   loader: 'file-loader',
-        options: {
-          // Limit at 50k. Above that it emits separate files
-          limit: 5000,
+      {
+        test: /\.(svg)$/,  
+        use: [{
+          
+                      loader: 'url-loader',
+//           loader: 'svg-url-loader',
+//          loader: 'file-loader',
 
-          // url-loader sets mimetype if it's passed.
-          // Without this it derives it from the file extension
-//          mimetype: "application/font-woff",
-
-          // Output below fonts directory
-            
-//          name: "[name].[ext]",
-//            publicPath: "../fonts/[name]/[name].[ext]", // Take the directory into account
-                name: 'img/[name].[ext]',
+            options: { 
+              limit: 8192,
+              
+////             filename: `${PATHS.assets}img/[name].[ext]`,
+//             name: 'img/[name].[ext]',
+//             publicPath: '../',
+//                fallback: "file-loader",
+//                          iesafe: true,
+//                encoding: "base64",
+//              esModule: false,
+              
+             filename: `${PATHS.assets}img/[name].[ext]`,
+             name: "img/[name].[ext]",
              publicPath: '../',
           outputPath:'',
           useRelativePath: true
-
-        }
-      },
-    },          
+              
+              
+            } 
+        }]
+      },    
 
     {
       // Match woff2 in addition to patterns like .woff?v=1.1.1.
@@ -117,7 +120,7 @@ module.exports = {
 //        loader: "file-loader",
         options: {
           // Limit at 50k. Above that it emits separate files
-          limit: 5000,
+          limit: 8192,
 
           // url-loader sets mimetype if it's passed.
           // Without this it derives it from the file extension
@@ -233,26 +236,6 @@ module.exports = {
       template: `${PATHS.src}/cart.pug`,
       filename: './cart.html'
     }),        
-//    new HtmlWebpackPlugin({
-//      hash: false,
-//      template: `${PATHS.src}/single.pug`,
-//      filename: './single.html'
-//    }),          
-//    new HtmlWebpackPlugin({
-//      hash: false,
-//      template: `${PATHS.src}/user.pug`,
-//      filename: './user.html'
-//    }),            
-//    new HtmlWebpackPlugin({
-//      hash: false,
-//      template: `${PATHS.src}/signup.pug`,
-//      filename: './signup.html'
-//    }),               
-//    new HtmlWebpackPlugin({
-//      hash: false,
-//      template: `${PATHS.src}/login.pug`,
-//      filename: './login.html'
-//    }),    
     
     
 //    new HtmlWebpackPlugin({
@@ -261,9 +244,9 @@ module.exports = {
 //      filename: './500.html'
 //    }),
     new CopyWebpackPlugin([
-//      { from: `${PATHS.src}/img`, to: `${PATHS.assets}img` },
+      { from: `${PATHS.src}/img`, to: `${PATHS.assets}img` },
       { from: `${PATHS.src}/static`, to: '' },
-      { from: `${PATHS.src}/img`, to: 'img' },
+//      { from: `${PATHS.src}/img`, to: 'img' },
 //      { from: `${PATHS.src}/css`, to: 'css' }
 //      { from: `${PATHS.src}/fonts`, to: 'fonts' }        
     ])
