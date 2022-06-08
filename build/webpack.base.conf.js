@@ -76,27 +76,42 @@ module.exports = {
                   interlaced: false,
                 }
           }
-         }]
+         } ]
       },
       //File loader used to load fonts
             
-      {
-        test: /\.(svg)$/,  
-        use: [{
-//          loader: 'file-loader',
-          loader: 'image-webpack-loader',
-            options: { 
+            
+    {
+      // Match woff2 in addition to patterns like .woff?v=1.1.1.
+      test: /\.(svg)(\?v=\d+\.\d+\.\d+)?$/,
+      use: {
+        loader: "url-loader",
+//        loader: "file-loader",
+                   loader: 'file-loader',
+        options: {
+          // Limit at 50k. Above that it emits separate files
+          limit: 5000,
 
-//                name: 'img/[hash].[ext]'
+          // url-loader sets mimetype if it's passed.
+          // Without this it derives it from the file extension
+//          mimetype: "application/font-woff",
+
+          // Output below fonts directory
+            
+//          name: "[name].[ext]",
+//            publicPath: "../fonts/[name]/[name].[ext]", // Take the directory into account
                 name: 'img/[name].[ext]',
+             publicPath: '../',
+          outputPath:'',
+          useRelativePath: true
 
-            } 
-        }]
-      },    
+        }
+      },
+    },          
 
     {
       // Match woff2 in addition to patterns like .woff?v=1.1.1.
-      test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
       use: {
         loader: "url-loader",
 //        loader: "file-loader",
@@ -207,6 +222,16 @@ module.exports = {
       hash: false,
       template: `${PATHS.src}/single.pug`,
       filename: './single.html'
+    }),    
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/catalog.pug`,
+      filename: './catalog.html'
+    }),      
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/cart.pug`,
+      filename: './cart.html'
     }),        
 //    new HtmlWebpackPlugin({
 //      hash: false,
