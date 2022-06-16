@@ -97,6 +97,11 @@ $('.event__1 .account_detals>li>a[data-item]').click(function(){
     $('.system_user>.select').toggleClass('active');
     
      
+  });  
+
+  $('.__tab').click(function(){
+    $(this).parent().toggleClass('open');
+     
   });
 
   
@@ -127,8 +132,12 @@ $('.help').click(function(){
 //                $( "ul.select" ).removeClass('active');
         }
     });  
-
-
+  
+  
+  $('.block_menu>ul>li:after').click(function(){
+  
+    $(this).toggleClass('active');
+});
   
 
   

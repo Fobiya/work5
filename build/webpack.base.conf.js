@@ -235,8 +235,22 @@ module.exports = {
       hash: false,
       template: `${PATHS.src}/cart.pug`,
       filename: './cart.html'
+    }),              
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/checkout.pug`,
+      filename: './checkout.html'
+    }),                  
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/confirmation.pug`,
+      filename: './confirmation.html'
+    }),                      
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/courses.pug`,
+      filename: './courses.html'
     }),        
-    
     
 //    new HtmlWebpackPlugin({
 //      hash: false,
