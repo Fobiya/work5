@@ -100,11 +100,13 @@
 
 
 [type=checkbox] {
-               opacity: 0;
+//  opacity: 0;
+  width: 10px;
+  height: 10px;
 }
 [type=checkbox] ~ label::before { }
 [type=checkbox] {
-    opacity: 0;
+//    opacity: 0;
 }
 [type=checkbox]~ label::before {
   content: '13';  

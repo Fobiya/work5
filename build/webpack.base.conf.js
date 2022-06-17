@@ -250,6 +250,11 @@ module.exports = {
       hash: false,
       template: `${PATHS.src}/courses.pug`,
       filename: './courses.html'
+    }),                         
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/overview.pug`,
+      filename: './overview.html'
     }),        
     
 //    new HtmlWebpackPlugin({

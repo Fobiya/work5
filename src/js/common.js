@@ -138,8 +138,24 @@ $('.help').click(function(){
   
     $(this).toggleClass('active');
 });
-  
 
+  
+  $('.block__read_more').click(function(){
+  
+    $(this).toggleClass('open');
+  });
+  
+  
+  $('.tab__overview>li>a').click(function(){
+      var num_data = $(this).data('tab');
+    
+    $('.tab__overview>li').removeClass('active');
+    $(this).parent().addClass('active');
+    
+    $('.tab__content>li').removeClass('active');
+    $('.tab__content li:nth-child('+ num_data + ')').addClass('active');
+
+  });
   
 // ===========================================================  
 // Pixel Perfect MODUL
