@@ -36,19 +36,25 @@ html(lang='en')
       .container
 
     
-    .right__menu.none
-      a.close(href='javascript:;')
-      ul.menu__
-        li
-          a(href='javascript:;') Recently Added
-        li
-          a(href='javascript:;') Masterclass Sessions
-        li
-          a(href='javascript:;') Summit Home
-        li
-          a(href='javascript:;') RTT
-        li
-          a(href='javascript:;') Human Longevity
+    .all__menu
+      .box__menu__
+        .top__
+          a.logo(href='javascript:;')
+            img.logo__img(src='img/logo.svg', alt='logo_w')
+          a.close(href='javascript:;')
+            img(src='img/close_w.svg?v13', alt='logo_w')
+        .menu__content
+          ul.menu__
+            li
+              a(href='javascript:;') Recently Added
+            li
+              a(href='javascript:;') Masterclass Sessions
+            li
+              a(href='javascript:;') Summit Home
+            li
+              a(href='javascript:;') RTT
+            li
+              a(href='javascript:;') Human Longevity
     
 
                 
@@ -87,9 +93,11 @@ html(lang='en')
 
               a.sandy_brown(href='javascript:;') Login
               a.help(href='javascript:;') Need help ?
-                
-            a.mobile__.none(href='javascript:;')
-              img.menu__img(src='img/menu.svg', alt='menu')
+              
+            a.cart__(href='javascript:;')
+              span 1
+            a.mobile__(href='javascript:;')
+              img.menu__img(src='img/menu_w.svg', alt='menu')
 
           
     .help__menu.main

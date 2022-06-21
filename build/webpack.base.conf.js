@@ -253,8 +253,18 @@ module.exports = {
     }),                         
     new HtmlWebpackPlugin({
       hash: false,
-      template: `${PATHS.src}/overview.pug`,
-      filename: './overview.html'
+      template: `${PATHS.src}/courses-overview.pug`,
+      filename: './courses-overview.html'
+    }),                            
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/courses-curriculum.pug`,
+      filename: './courses-curriculum.html'
+    }),                                
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/healers.pug`,
+      filename: './healers.html'
     }),        
     
 //    new HtmlWebpackPlugin({

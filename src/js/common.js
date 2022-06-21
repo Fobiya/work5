@@ -144,6 +144,11 @@ $('.help').click(function(){
   
     $(this).toggleClass('open');
   });
+    
+  $('.title_top').click(function(){
+  
+    $(this).parent().toggleClass('open');
+  });
   
   
   $('.tab__overview>li>a').click(function(){
@@ -157,6 +162,11 @@ $('.help').click(function(){
 
   });
   
+    $('section.courses-curriculum__2 .right__menu .close').click(function(){
+  
+       $(this).parent().toggleClass('open');
+
+    });
 // ===========================================================  
 // Pixel Perfect MODUL
 // ===========================================================  
@@ -263,32 +273,32 @@ $('.help').click(function(){
 
     $(function() {
         $('.mobile__').click(function() {
-            $('.right__menu').addClass('open');
+            $('.all__menu').addClass('open');
             $('body').addClass('open__menu');
         });
     });
 
-    $(document).mouseup(function(e) { // web document click event
-        var div = $(".right__menu"); // here we specify the ID of the element
-        if (!div.is(e.target) // if the click was not on our block
-            &&
-            div.has(e.target).length === 0) { // and not by its children
-            $(".right__menu").removeClass("open");
-            $('body').removeClass("open__menu");
-        }
-    });
+//    $(document).mouseup(function(e) { // web document click event
+//        var div = $(".right__menu"); // here we specify the ID of the element
+//        if (!div.is(e.target) // if the click was not on our block
+//            &&
+//            div.has(e.target).length === 0) { // and not by its children
+//            $(".right__menu").removeClass("open");
+//            $('body').removeClass("open__menu");
+//        }
+//    });
 
 
 
     $('.close').click(function() {
 
-      $(".right__menu").removeClass("open");
+      $(".all__menu").removeClass("open");
             $('body').removeClass("open__menu");
     });
   
     $('.mobile__').click(function() {
 
-      $(".right__menu").removeClass("open");
+      $(".all__menu").removeClass("open");
             $('body').removeClass("open__menu");
     });
   
