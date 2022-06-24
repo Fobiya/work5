@@ -65,9 +65,9 @@ body.compensate-for-scrollbar {
 }
 
 .fancybox-is-open .fancybox-bg {
-  opacity: .9;
+  opacity: 0.5;
 //  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
-  background-color: #1b1b1b;
+    background: rgb(59, 43, 39);
     backdrop-filter: blur(100px);
 }
 
@@ -189,11 +189,11 @@ body.compensate-for-scrollbar {
 //      min-width: 300px;
   
     border-radius: 0;
-    box-shadow: 0 0px 20px rgba(220, 228, 240, 0.23);
+//    box-shadow: 0 0px 20px rgba(220, 228, 240, 0.23);
 
 //    padding: 2rem;
-    background-color: #fff;
-    text-align: center;
+//    background-color: #fff;
+//    text-align: center;
 //  border-radius: 30px;
   
 //    border: 3px solid rgba(22,5,72,.10980392156862745);

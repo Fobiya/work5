@@ -265,7 +265,30 @@ module.exports = {
       hash: false,
       template: `${PATHS.src}/healers.pug`,
       filename: './healers.html'
+    }),                                   
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/healers-overview.pug`,
+      filename: './healers-overview.html'
+    }),                                     
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/booking.pug`,
+      filename: './booking.html'
+    }),                                        
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/booking-event.pug`,
+      filename: './booking-event.html'
     }),        
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/become-an-healer.pug`,
+      filename: './become-an-healer.html'
+    }),        
+    
+    
+    
     
 //    new HtmlWebpackPlugin({
 //      hash: false,

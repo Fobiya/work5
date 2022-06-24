@@ -160,9 +160,83 @@ $('.help').click(function(){
     $('.tab__content>li').removeClass('active');
     $('.tab__content li:nth-child('+ num_data + ')').addClass('active');
 
+  });  
+  
+  $('.tab__healers>li>a').click(function(){
+      var num_data = $(this).data('tab');
+    
+    $('.tab__healers>li').removeClass('active');
+    $(this).parent().addClass('active');
+    
+    $('.tab__content>div').removeClass('active');
+    $('.tab__content>div:nth-child('+ num_data + ')').addClass('active');
+    
+    
+    
+    if( num_data == 4){
+       
+         function sayHi() {
+
+              $('.healers-overview').slick({
+                        arrows: false,
+                    dots: true,
+              slidesToShow: 4,
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 2000,
+
+                    customPaging: function(slider, i) {
+          // this example would render "tabs" with titles
+                    return '<span class="dot"></span>';
+                  },
+
+
+                  responsive: [
+                    {
+                      breakpoint: 1224,
+                      settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                      }
+                    },
+                    {
+                      breakpoint: 900,
+                      settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                      }
+                    },
+                    {
+                      breakpoint: 550,
+                      settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                      }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                  ]
+
+            });
+
+        }
+
+        setTimeout(sayHi, 1000);
+
+       
+       }
+
   });
   
     $('section.courses-curriculum__2 .right__menu .close').click(function(){
+  
+       $(this).parent().toggleClass('open');
+
+    });  
+    $('.checkout__1 .box__bat li .title').click(function(){
   
        $(this).parent().toggleClass('open');
 
@@ -956,6 +1030,52 @@ for(let div of document.querySelectorAll('footer')){
 
     });
 
+  
+
+          $('.healers-overview').slick({
+                    arrows: false,
+                dots: true,
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 2000,
+
+                customPaging: function(slider, i) {
+      // this example would render "tabs" with titles
+                return '<span class="dot"></span>';
+              },
+            
+            
+              responsive: [
+                {
+                  breakpoint: 1224,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                  }
+                },
+                {
+                  breakpoint: 900,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                  }
+                },
+                {
+                  breakpoint: 550,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+              ]
+            
+        });
 
 
 // =========================================================== 
