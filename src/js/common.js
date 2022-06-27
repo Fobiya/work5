@@ -241,6 +241,14 @@ $('.help').click(function(){
        $(this).parent().toggleClass('open');
 
     });
+  
+    $('.block__list .close').click(function(){
+      
+      $('.block__list').removeClass('active');
+  
+  
+      });
+      
 // ===========================================================  
 // Pixel Perfect MODUL
 // ===========================================================  
@@ -1027,6 +1035,35 @@ for(let div of document.querySelectorAll('footer')){
       
         slidesToShow: 1,
         slidesToScroll: 1,
+        
+                customPaging: function(slider, i) {
+      // this example would render "tabs" with titles
+                return '<span class="dot"></span>';
+              },
+            
+            
+              responsive: [
+                {
+                  breakpoint: 911,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                            dots: true,
+                  }
+                },
+                {
+                  breakpoint: 550,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                      dots: true,
+                  }
+                }
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+              ]
+        
 
     });
 

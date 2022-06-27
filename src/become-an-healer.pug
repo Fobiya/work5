@@ -93,8 +93,22 @@ html(lang='en')
 
               a.sandy_brown(href='javascript:;') Login
               a.help(href='javascript:;') Need help ?
-            a.cart__(href='javascript:;')
-              span 1
+            .box__cart
+              a#cart.cart__(href='javascript:;')
+                span 1
+              .block__list.active
+                a.close(href='javascript:;')
+                #block__list__cart
+                  .block__img
+                    img.images(src='img/become-an-healer__1_big_img.png', alt='become-an-healer__1_big_img')
+
+                  p.title Masterclass Sessions Masterclass Sessions 
+                  span.prise $1000
+
+                  a.sandy_brown(href='javascript:;') Cart
+                
+                
+                
             a.mobile__(href='javascript:;')
               img.menu__img(src='img/menu.svg', alt='menu')
 
@@ -188,14 +202,19 @@ html(lang='en')
                   meta(itemprop='position' content='1')
                 li.breadcrumbs__current Chunyi Lin
                 
-          .col.m12.s12.l8.xl8
+        .row
+          .col.m12.s12.l6.xl6
 
             h1.title Become a Healer
-        
+            a.orange(href='javascript:;') Make an Appointment
               
-          .col.m12.s12.l4.xl4
+          .col.m12.s12.l6.xl6
             .block__autor
               img.images(src='img/become-an-healer__1_img.png', alt='overview__1_author')
+              
+              
+
+              
               
         .row
           .col.m12.s12.l12.xl12
@@ -237,14 +256,14 @@ html(lang='en')
       .container
         .row
           .col.m12.s12.l7.xl7
-            h2.title Register Now to Get a 50% Discount
+            h2.title Register Now to <br>Get a 50% Discount
             p.sub Get 100 Online Courses For Free
             .col_daven
               .day
                 span 0
                 p Days
               .hou
-                span
+                span 0
                 p Hours
               .min
                 span 0
@@ -264,19 +283,19 @@ html(lang='en')
               form(method='POST', action='javascript:void(null);')
                 // Hidden Required Fields
                 .form_input
-                  span.field
-                    input.name(type='text', name='name', required='', value='', placeholder='Name')
-                .form_input
+                  label Email Adress
                   span.field
                     input.mail(type='email', name='email', required='', value='', placeholder='Email')
                 .form_input
+                  label Phone Number
                   span.field
-                    input.ferstname(type='text', name='subject', required='', value='', placeholder='Subject')
+                    input.phone(type='text', name='phone', required='', value='', placeholder='Phone')
                 .form_input
+                  label Street Adress
                   span.field
-                    textarea.textarea(name='message', required='', value='', placeholder='Message')
+                    input.adress(type='text', name='adress', required='', value='', placeholder='Street Adress')
 
-                button.blue(type='submit', name='send') SEND
+                button.blue(type='submit', name='send') Get it Now
           
 
           
