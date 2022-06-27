@@ -1,0 +1,42 @@
+/*!
+Theme Name: springforestqigong
+Author: Betasprint.com
+Author URI: Betasprint.com
+Description: Description
+Version: 1.0.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: springforestqigong
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+*/
+
+
+section.courses__1 .post__ .block__img a{
+  display: flex;
+}
+
+section.courses__1 .post__ .block__content .title__post a{
+    color: #373f41;
+    margin-bottom: 15px;
+    letter-spacing: -.001em;
+    font: 700 24px/1.2em var(--l)
+}
+
+
+section.checkout__1 .block,section.checkout__1 .woocommerce-additional-fields,section.checkout__1 .woocommerce-billing-fields,section.checkout__1 .woocommerce-checkout-review-order {
+    margin-bottom: 25px;
+}
+
+header.account .menu__{
+  gap: 25px; 
+}
+
+.heart_of_wisdom{
+  display: none;
+}
+
+.woocommerce-cart-form>div:nth-child(3)>div:nth-child(1)>div:nth-child(1)>*{
+/*  display: none;*/
+}
