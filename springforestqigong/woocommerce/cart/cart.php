@@ -85,12 +85,16 @@ do_action( 'woocommerce_before_cart' ); ?>
                                 <h2 class="title">
                                   <?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a class="title" href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) ); ?>
                                 </h2>
-                                <h3 class="sub">Title of the Product</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                                    
+                              <?php $short_description = apply_filters( 'woocommerce_short_description', $_product->get_short_description() ); ?>
+                                
+                              <p><?php $rtextthe_ertitle = strip_tags( $short_description); echo mb_substr( $rtextthe_ertitle, 0, 180); echo '...'; // echo $short_description; // WPCS: XSS ok. ?></p>
+                                 
+                                  <?php echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.  ?>
+                                
                               </div>
                               <div class="col m12 s12 l2 xl2">
-
-
+  
                               <?php if(0){ ?>
 
                                  <?php  do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
@@ -148,14 +152,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 
                             <div class="col m12 s12 l2 xl2">
 
-                                <div class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">X1 
-                                    <?php  echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.  ?>
-                                </div>
-                              <div class="product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
-                                <?php
-                                    echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
-                                ?>
-                            </div>
+                              <div class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
+                                       <?php  echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.  ?>
+
+                              </div>
 
                             </div>
 
@@ -286,6 +286,9 @@ do_action( 'woocommerce_before_cart' ); ?>
           <div class="col m12 s12 l6 xl7">
 
             <?php do_action( 'woocommerce_cart_contents' ); ?>
+            
+            
+              <?php if(0){ ?>
 
                 <?php if ( wc_coupons_enabled() ) { ?>
                     <div class="coupon">
@@ -293,6 +296,8 @@ do_action( 'woocommerce_before_cart' ); ?>
                         <?php do_action( 'woocommerce_cart_coupon' ); ?>
                     </div>
                 <?php } ?>
+            
+              <?php } ?>
 
                 <button type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 

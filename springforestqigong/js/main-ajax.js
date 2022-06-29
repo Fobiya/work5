@@ -55,5 +55,5 @@ document.addEventListener('DOMContentLoaded', function(){
             
 
     }) 
-})
+}) 
 

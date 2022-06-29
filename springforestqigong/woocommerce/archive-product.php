@@ -112,7 +112,8 @@ if(0){
     
 
 <?php if (is_product_category()) { ?>
-
+    
+    
     <section class="section__ catalog__1">
       <div class="container">
         <div class="row">
@@ -120,6 +121,7 @@ if(0){
           <div class="col m12 s12 l6 xl6">
             <h1 class="title"><?php echo  single_cat_title( '', false ); ?></h1>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh. </p>
+            
           </div>
         </div>
         <div class="row">
@@ -129,12 +131,10 @@ if(0){
           </div>
         </div>
         <div class="row">
-          
+         
+  
               
-     <?php  
-      $url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];                            
-                                  
-                                  
+     <?php  $url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];                
        $args = array(
             'order' => 'DESC', // order filter  last post
             'post_type'  => 'product', // Post type category BLOG
@@ -186,10 +186,9 @@ if(0){
         wp_reset_postdata();
       ?>
 
-
+          
+          
         </div>
-        
-        
         <div class="row">
           <div class="col m12 s12 l12 xl12">
             <h2 class="title">Testimonials</h2>
@@ -244,8 +243,10 @@ if(0){
       </div>
     </section>
     <section class="section__ catalog__3"></section>
-  <?php } else {  ?>  
 
+
+  <?php } else {  ?>  
+    
     <section class="section__ shop__1">
       <div class="container">
         <div class="row">
@@ -311,7 +312,7 @@ if(0){
           <div class="col m12 s12 l4 xl4">
             <div class="block_menu">
               <ul>
-              
+
               <?php 
                 
         // Get Woocommerce product categories WP_Term objects
@@ -332,50 +333,37 @@ if(0){
                 
               
       <?php } ?>
-
+                
+              
+                
               </ul>
             </div>
-          </div> 
+          </div>
           <div class="col m12 s12 l8 xl8">
             <div class="block__post">
+         
+             <?php 
+             $args = array(
+                  'child_of' => 877
+              );
               
+              $terms = get_terms( 'product_cat', $args );
               
+              if ( $terms ) {
+                foreach ( $terms as $term ) {  ?>
+                    <div class="post__"><div class="block__img__"><a class="title_link" href="<?php  echo get_term_link( $term ); ?>"><?php echo $term->slug; ?></a></div></div> 
+                <?php  }
               
-              
-             <?php  
-               $args = array(
-                    'order' => 'DESC', // order filter  last post
-                    'post_type'  => 'product', // Post type category BLOG
-                    'posts_per_page' => 20, // echo show three post 
-                );
-                // The Query
-                $the_query = new WP_Query( $args );
+              }
 
-                // The Loop
-                if ( $the_query->have_posts() ) {
-
-                    while ( $the_query->have_posts() ) {
-                        $the_query->the_post(); ?>
-
-                      <div class="post__">
-                        <div class="block__img__"><a class="title_link" href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></div>
-                      </div>
-
-                   <?php }
-
-                } else {
-                    // no posts found
-                }
-                /* Restore original Post Data */
-                wp_reset_postdata();
-              ?>
-
+                 ?>
 
             </div>
           </div>
         </div>
       </div>
     </section>
+    
 
   <?php } ?>  
 <?php get_footer();

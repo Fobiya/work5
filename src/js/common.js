@@ -245,9 +245,8 @@ $('.help').click(function(){
     $('.block__list .close').click(function(){
       
       $('.block__list').removeClass('active');
-  
-  
-      });
+
+    });
       
 // ===========================================================  
 // Pixel Perfect MODUL
@@ -972,11 +971,11 @@ for(let div of document.querySelectorAll('footer')){
   
   
   
-      $('.home__6 .next__').click(function() { 
+  $('.single__1 .box__arrow .next__').click(function() { 
     $single__slider.slick('slickNext');
   });
  
-  $('.home__6  .prev__').click(function() {
+  $('.single__1 .box__arrow .prev__').click(function() {
     $single__slider.slick('slickPrev');
   });
     

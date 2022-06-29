@@ -105,8 +105,17 @@ add_action( 'wp_ajax_nopriv_search_post_change', 'search_chang_post' );
 
             while ( $the_query->have_posts() ) {
                 $the_query->the_post();
+              
+              
+              
+              
+              if(get_the_post_thumbnail_url()){
+                   $get_the_post_thumbnail_url = get_the_post_thumbnail_url();
+              }else{
+                   $get_the_post_thumbnail_url = '//springfore1dev.wpengine.com/wp-content/uploads/woocommerce-placeholder-100x100.png';
+              }
 
-                $get_the_post_thumbnail_url = get_the_post_thumbnail_url();
+             
                 $get_the_title = get_the_title();
                 
                 $content = get_the_content(); 
@@ -147,3 +156,86 @@ add_action( 'wp_ajax_nopriv_search_post_change', 'search_chang_post' );
 
 add_action( 'wp_ajax_addcart_prod', 'prod_addcart' );
 add_action( 'wp_ajax_nopriv_addcart_prod', 'prod_addcart' );
+
+/**
+	 * 
+	 * Getting products for shop page
+	 */
+
+
+function my_ajax_get_posts(){
+    if ( empty($_POST) || ! wp_verify_nonce( $_POST['spring_nonce'], 'spring_nonce') ){
+          print 'Sorry, the verification data does not match 1111.';
+          exit;
+      }else{
+
+//            die('Permission denied');
+
+//          $category = $_POST['category'];
+//            $response = $category;
+      
+
+  $category = $_POST['category'];
+	$response = $category;
+
+
+$args = array(
+    'child_of' => $category
+);
+ 
+$terms = get_terms( 'product_cat', $args );
+ 
+if ( $terms ) {
+  foreach ( $terms as $term ) {  ?>
+      <div class="post__"><div class="block__img__"><a class="title_link" href="<?php  echo get_term_link( $term ); ?>"><?php echo $term->slug; ?></a></div></div> 
+   <?php  }
+ 
+}
+      
+
+  else { 
+$response = '';
+  // WP Query
+  $args = array(
+      'post_type' => 'product',
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'product_cat',
+         'field'    => 'term_id',
+         'terms'     =>  array($category), 
+        ),
+      ),
+      'posts_per_page' => -1,
+    );
+  
+ 
+  // If category is not set, remove key from array and get all posts
+  if( !$category ) {
+    unset( $args['taxonomy'] );
+  }
+
+	 $query = new WP_query($args);
+ 
+  if ( $query->have_posts() ) {
+		 while ( $query->have_posts() ) : $query->the_post();  ?>
+     <div class="post__"><div class="block__img__"><a class="title_link" href="<?php  the_permalink(); ?>"><?php the_title(); ?></a></div></div> 
+          
+ 
+  <?php endwhile; ?>
+  <?php } else {
+		$response = '<h2>No posts found</h2>';
+	}
+//      
+
+//      var_dump($terms);
+      
+ }   
+      
+      }
+      
+      die;
+  }
+
+add_action( 'wp_ajax_me_get_posts', 'my_ajax_get_posts' );
+add_action( 'wp_ajax_nopriv_me_get_posts', 'my_ajax_get_posts' ); 
+  

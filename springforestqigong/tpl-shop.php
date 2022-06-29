@@ -128,7 +128,10 @@ get_header(); ?>
     
    
    
-    <?php the_content(); ?>
+    <?php the_content(); 
+    
+    
+    ?>
     
     <?php if(0){ ?>
     <footer class="main">

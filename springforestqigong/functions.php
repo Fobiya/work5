@@ -167,7 +167,7 @@ function springforestqigong_scripts() {
  
 	wp_localize_script( 'spring_products_script', 'spring_vars', array(
         'spring_nonce' => wp_create_nonce( 'spring_nonce' ), // Create nonce which we later will use to verify AJAX request
-        'afp_ajax_url' => admin_url( 'admin-ajax.php' ),
+        'spring_ajax_url' => admin_url( 'admin-ajax.php' ),
       )
   );
   // wp_localize_script( 'afp_script', 'afp_vars', array(
@@ -267,58 +267,16 @@ add_action('acf/init', 'my_acf_init');
 			return esc_url( home_url() );
 	} ); 
 
-	/**
-	 * 
-	 * Getting products for shop page
-	 */
+	
 
-	 function ajax_filter_get_posts( $taxonomy ) {
+add_image_size( 'testimonials', 420, 340, true );
 
-  // Verify nonce
-  if( !isset( $_POST['spring_nonce'] ) || !wp_verify_nonce( $_POST['spring_nonce'], 'spring_nonce' ) )
-    die('Permission denied');
 
-  $category = $_POST['category'];
-	$response = $category;
-echo $response;
-die();
-$response = '';
-  // WP Query
-  $args = array(
-    'post_status' => 'publish',
-		'post_type' => 'product',
-		'posts_per_page' => 20,
-		'order' => 'DESC',
-    'tax_query' => array(
-         'taxonomy' => 'product_cat',
-         'field'    => 'term_id',
-         'terms'     =>  array($category), 
-        
-				 'operator'  => 'IN'
-         )
-    );
-  
- 
-  // If category is not set, remove key from array and get all posts
-  if( !$category ) {
-    unset( $args['taxonomy'] );
-  }
+add_image_size( 'singel-products', 413, 276, true );
+add_image_size( 'singel-courses', 240, 240, true );
 
-	 $query = new WP_query($args);
- 
-  if ( $query->have_posts() ) {
-		 while ( $query->have_posts() ) : $query->the_post();  
-		$response .= '<h2><a href="'.the_permalink().'">'.the_title().'</a></h2>'.the_excerpt(); ?>
- 
-  <?php endwhile; ?>
-  <?php } else {
-		$response = '<h2>No posts found</h2>';
-	}
- echo $response;
 
-  die();
-}
- 
-add_action('wp_ajax_filter_posts', 'ajax_filter_get_posts');
-add_action('wp_ajax_nopriv_filter_posts', 'ajax_filter_get_posts');
+add_image_size( 'slider-big', 600, 600, true );
+add_image_size( 'slider-smoll', 180, 120, true );
+
 

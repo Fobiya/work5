@@ -179,40 +179,40 @@
   display: none;
 }
 
-
+//
 input[type="checkbox"]:checked + label:after, 
 input[type="checkbox"]:not(:checked) + label:after, 
 input[type="radio"]:checked + label:after, 
 input[type="radio"]:not(:checked) + label:after {
     content: "";
-    position: absolute;
+   position: relative;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
 
 }
-
-input[type="checkbox"]:checked + label:after, 
-input[type="checkbox"]:not(:checked) + label:after {
-    left: 3px;
-    top: 4px;
-    width: 10px;
-    height: 5px;
-    border-radius: 1px;
-    border-left: 4px solid #e145a3;
-    border-bottom: 4px solid #e145a3;
-    transform: rotate(-45deg);
-}
+//
+//input[type="checkbox"]:checked + label:after, 
+//input[type="checkbox"]:not(:checked) + label:after {
+//    left: 3px;
+//    top: 4px;
+//    width: 10px;
+//    height: 5px;
+//    border-radius: 1px;
+//    border-left: 4px solid #e145a3;
+//    border-bottom: 4px solid #e145a3;
+//    transform: rotate(-45deg);
+//}
 
 input[type="radio"]:checked + label:after, 
 input[type="radio"]:not(:checked) + label:after {
-    left: 5px;
-    top: 5px;
+   
+  position: relative;
     width: 10px;
     height: 10px;
-    border-radius: 100%;
-    background-color: #e145a3;
+    border-radius: 3px;
+    background-color: #e55d45;
 }
 
 
@@ -352,10 +352,10 @@ select {
    font: 100 16px/1.3em var(--l);
   position: relative;
     
-  &::-ms-expand {
-    /* for IE 11 */
-    display: none;
-  }
+    &::-ms-expand {
+      /* for IE 11 */
+      display: none;
+    }
 
   
     padding: 10px 20px;
@@ -383,18 +383,17 @@ select {
 //    box-shadow: 0 0 0 3px #dce4f0 !important;
     
     &:focus {
-           color: #000;
-	
-  font: 100 16px/1.3em var(--l);
+        color: #000;
+        font: 100 16px/1.3em var(--l);
     }
     
     &[disabled], &:disabled{
-      opacity: 0.4;
-      cursor: not-allowed;
-            color: #303030 !important;
-      transition: opacity 0.3s ease;
+        opacity: 0.4;
+        cursor: not-allowed;
+        color: #303030 !important;
+        transition: opacity 0.3s ease;
 
-//      box-shadow: 0 10px 20px #dce4f0;
+        //      box-shadow: 0 10px 20px #dce4f0;
     }
 
     // we use invalid like a placeholder
@@ -424,11 +423,11 @@ select {
 	
 	&:active {
           color: #000;
-	
-    font: 100 16px/1.3em var(--l);
-      transition: opacity 0.3s ease;
 
-//      box-shadow: 0 10px 20px #dce4f0;
+          font: 100 16px/1.3em var(--l);
+          transition: opacity 0.3s ease;
+
+          //      box-shadow: 0 10px 20px #dce4f0;
 	}
 	
 	&:hover {
@@ -462,32 +461,32 @@ select {
 	}
 
 	&:focus option {
-		position:relative;
-		// pointer-events:all;
-		
-     color: #000;
-	
-  font: 100 16px/1.3em var(--l);
+        position:relative;
+        // pointer-events:all;
+
+        color: #000;
+
+        font: 100 16px/1.3em var(--l);
 	}
   
   
   
-      &:after{
-        @extend %bef-aft;
+    &:after{
+          @extend %bef-aft;
 
-        background: url(../img/arrow_top.svg) no-repeat;
+          background: url(../img/arrow_top.svg) no-repeat;
 
-   padding: 0 8px;
-  font-size: 12px;
-  position: absolute;
-  right: 8px;
-  top: 4px;
-  z-index: 1111;
-  text-align: center;
-  width: 10%;
-  height: 100%;
-  pointer-events: none;
-  box-sizing: border-box;
+          padding: 0 8px;
+          font-size: 12px;
+          position: absolute;
+          right: 8px;
+          top: 4px;
+          z-index: 1111;
+          text-align: center;
+          width: 10%;
+          height: 100%;
+          pointer-events: none;
+          box-sizing: border-box;
       }
   
   
