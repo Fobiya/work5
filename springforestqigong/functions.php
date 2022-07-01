@@ -280,3 +280,85 @@ add_image_size( 'slider-big', 600, 600, true );
 add_image_size( 'slider-smoll', 180, 120, true );
 
 
+add_image_size( 'product-img', 240, 260, true );
+add_image_size( 'product-category', 613, 586, true );
+
+add_image_size( 'checkout', 94, 98, true );
+
+
+add_action( 'wp_footer', 'cart_update_qty_script' );
+function cart_update_qty_script() {
+  if (is_cart()) :
+   ?>
+    <script>
+        jQuery('div.woocommerce').on('change', '.qty', function(){
+           jQuery("[name='update_cart']").removeAttr('disabled');
+           jQuery("[name='update_cart']").trigger("click"); 
+        });
+   </script>
+<?php
+endif;
+}
+
+
+// Add this to your theme's functions.php
+function kia_add_script_to_footer(){
+    if( ! is_admin() ) { ?>
+    <script>
+    jQuery(document).ready(function($){
+    $('.quantity').on('click', '.plus', function(e) {
+        $input = $(this).prev('input.qty');
+        var val = parseInt($input.val());
+        var step = $input.attr('step');
+        step = 'undefined' !== typeof(step) ? parseInt(step) : 1;
+        $input.val( val + step ).change();
+    });
+
+    $('.quantity').on('click', '.minus', 
+        function(e) {
+        $input = $(this).next('input.qty');
+        var val = parseInt($input.val());
+        var step = $input.attr('step');
+        step = 'undefined' !== typeof(step) ? parseInt(step) : 1;
+        if (val > 0) {
+            $input.val( val - step ).change();
+        } 
+    });
+});
+</script>
+<?php }
+}
+add_action( 'wp_footer', 'kia_add_script_to_footer' );
+
+
+
+add_filter('woocommerce_billing_fields','wpb_custom_billing_fields');
+// remove some fields from billing form
+// ref - https://docs.woothemes.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+function wpb_custom_billing_fields( $fields = array() ) {
+
+	unset($fields['billing_company']);
+//	unset($fields['billing_address_1']);
+	unset($fields['billing_address_2']);
+//	unset($fields['billing_state']);
+//	unset($fields['billing_city']);
+//	unset($fields['billing_phone']);
+//	unset($fields['billing_postcode']);
+//	unset($fields['billing_country']);
+
+	return $fields;
+}
+
+
+//add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields_ek', 99 );
+//// Remove some fields from billing form
+//// Our hooked in function - $fields is passed via the filter!
+//// Get all the fields - https://docs.woothemes.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+//function custom_override_checkout_fields_ek( $fields ) {
+//     unset($fields['billing']['billing_company']);
+//     unset($fields['billing']['billing_address_1']);
+//     unset($fields['billing']['billing_postcode']);
+//     unset($fields['billing']['billing_state']);
+//
+//     return $fields;
+//}

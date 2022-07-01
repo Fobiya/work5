@@ -230,23 +230,38 @@ $('.help').click(function(){
        }
 
   });
-  
-    $('section.courses-curriculum__2 .right__menu .close').click(function(){
-  
-       $(this).parent().toggleClass('open');
 
-    });  
-    $('.checkout__1 .box__bat li .title').click(function(){
-  
-       $(this).parent().toggleClass('open');
+  $('section.courses-curriculum__2 .right__menu .close').click(function(){
 
-    });
+     $(this).parent().toggleClass('open');
+
+  });  
   
+//  $('.checkout__1 .box__bat li .title').click(function(){
+//
+//    $('.checkout__1 .box__bat li').removeClass('open');
+//    $(this).parent().toggleClass('open');
+//
+//  });  
+  
+  $('.checkout__1 .box__bat li .block__bot a').click(function(){
+
+    var num_data = $(this).data('next');
+    
+    console.log(num_data);
+ $('.checkout__1 .box__bat li').removeClass('open');
+    $('.checkout__1 .box__bat li:nth-child(' + num_data + ')').addClass('open');
+
+  });
+
     $('.block__list .close').click(function(){
       
       $('.block__list').removeClass('active');
 
     });
+  
+  $('#wc-stripe-payment-request-wrapper').remove();
+  $('#wc-stripe-payment-request-button-separator').remove();
       
 // ===========================================================  
 // Pixel Perfect MODUL

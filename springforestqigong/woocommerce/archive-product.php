@@ -19,6 +19,9 @@ get_header();
 
 defined( 'ABSPATH' ) || exit;  
 
+
+
+
 if(0){ 
 
     get_header( 'shop' );
@@ -112,22 +115,58 @@ if(0){
     
 
 <?php if (is_product_category()) { ?>
+   
+   
+<?php  
+  
+//    $terms_post = get_the_terms( $post->tag_ID , 'product_cat' );
+//
+//    $ids_cats = $terms_post[0]->term_id; 
+//  print_r($terms_post); 
+
+  $term = get_queried_object(); ?>
     
     
     <section class="section__ catalog__1">
       <div class="container">
         <div class="row">
-          <div class="col m12 s12 l6 xl6"><img class="images" src="<?= get_template_directory_uri(); ?>/img/catalog__1_img.png" alt="logo_w"></div>
+          <div class="col m12 s12 l6 xl6">
+
+            <?php if(get_field('category_images', $term) ){ ?>
+            <!-- 1 -->
+              <?php $image = get_field('category_images', $term); ?>
+              <img class="images"  src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+            <?php }else{ ?>
+            <!-- 2 -->
+              <img class="images" src="<?= get_template_directory_uri(); ?>/img/catalog__1_img.png" alt="logo_w">
+            <?php } ?>
+
+          </div>
           <div class="col m12 s12 l6 xl6">
             <h1 class="title"><?php echo  single_cat_title( '', false ); ?></h1>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh. </p>
-            
+
+            <?php if(get_field('discription_', $term) ){ ?>
+           
+              <p><?php the_field('discription_', $term); ?></p>
+            <?php } ?>
+
+
           </div>
         </div>
         <div class="row">
           <div class="col m12 s12 l12 xl12">
-            <h2 class="title">Explore different variety of courses, books, and gifts</h2>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea </p>
+            
+            <?php if(get_field('title_cat_', $term) ){ ?>
+           
+              <h2 class="title"><?php the_field('title_cat_', $term); ?></h2>
+            <?php } ?>
+
+            <?php if(get_field('sub_discription_', $term) ){ ?>
+           
+              <p><?php the_field('sub_discription_', $term); ?></p>
+            <?php } ?>
+
+
           </div>
         </div>
         <div class="row">
@@ -147,15 +186,29 @@ if(0){
         if ( $the_query->have_posts() ) {
 
             while ( $the_query->have_posts() ) {
-                $the_query->the_post(); ?>
+                $the_query->the_post(); 
+              
+            global $post;  ?>
           
           
           <div class="col m6 s12 l3 xl3">
             <div class="block__post">
-              <h3 class="title"><?php echo get_the_title(); ?></h3>
-              <p>Everything in the universe is a form of energy, including every cell in your body, and this is the fundamental principle of Spring Forest Qigong. Your body's energy is constantly in the process of transforming. </p>
+              <h3 class="title" title="<?php echo  get_the_title(); ?>"><?php echo get_the_title(); ?></h3>
+               <?php $short_description = apply_filters( 'woocommerce_short_description', $post->post_excerpt ); ?>
+                     <?php if($short_description){ ?> 
+                        <p><?php $rtextthe_ertitle = strip_tags( $short_description, '...'); echo mb_substr( $rtextthe_ertitle, 0, 180); // echo $short_description; // WPCS: XSS ok. ?></p>
+                     <?php }else{  ?>
+                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet elit sit amet elit.</p>
+                     <?php } ?>
+
               <a href="<?php echo get_the_permalink(); ?>">
-                <img class="images" src="<?= get_template_directory_uri(); ?>/img/single__2_catalog_img_1.png" alt="logo_w">
+                
+                 <?php if(get_the_post_thumbnail_url()){ ?>
+                  <img class="images" src="<?= get_the_post_thumbnail_url( get_the_ID(), 'product-img' ); ?>" alt="face">
+                 <?php }else{ ?>
+                  <img class="images" src="<?= get_template_directory_uri(); ?>/img/single__2_catalog_img_1.png" alt="logo_w">
+                 <?php } ?>
+
               </a>
               <div class="bottom">
                 
@@ -249,52 +302,175 @@ if(0){
     
     <section class="section__ shop__1">
       <div class="container">
-        <div class="row">
-          <div class="col m12 s12 l12 xl6">
-            <h1 class="title">Lorem ipsum dolor sit amet, dolor</h1>
-            <p class="sub">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh.</p><a class="orange" href="javascript:;">Buy Now</a>
-          </div>
-          <div class="col m12 s12 l12 xl6">
-            <div class="block__img"><img src="<?= get_template_directory_uri(); ?>/img/shop__1_img.png" alt="logo_w"></div>
-            <div class="block__right">
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh   euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. vulputate velit esse accumsan et iusto odio dignissim qui </p>
-            </div>
-          </div>
-        </div>
+      
+    <?php   
+      function get_random_post() {
+    if ( !isset( $_SESSION['random'] ) ) {
+        $_SESSION['random'] = rand();
+    }
+    return $_SESSION['random']; } ?>
+       
+     <?php $argsrand = array(
+            'post_status' => 'publish',
+            'post_type'  => 'product', // Post type category BLOG
+//            'orderby' => 'rand',
+             'posts_per_page' => 1,
+           //'orderby'        => 'rand(' . get_random_post() . ')',
+              'orderby' => 'rand',
+              
+        );
+        // The Query
+        $the_queryrand = new WP_Query( $argsrand );
+
+        // The Loop
+        if ( $the_queryrand->have_posts() ) {
+
+            while ( $the_queryrand->have_posts() ) {
+                $the_queryrand->the_post();   
+        
+                global $woocommerce;
+                global $product;
+
+                $order = wc_get_order( $order_id );   ?>
+
+                  <div class="row">
+                    <div class="col m12 s12 l12 xl6">
+                      <h1 class="title"><?php echo get_the_title(); ?></h1>
+                      <?php $short_description = apply_filters( 'woocommerce_short_description', $post->post_excerpt ); ?>
+                      <?php if($short_description){ ?>
+                        <p class="sub"><?php echo $short_description; ?></p>
+                      <?php } ?>
+                      
+                      
+               <form id="<?php echo get_the_ID(); ?>"  method='POST' action='javascript:void(null);'>
+
+                  <input type="hidden" id="product-quantity" name="quantity" value="1" min="1">
+
+
+                  <?php wp_nonce_field( 'addcart_post', 'addcart_post_nonce' );?>
+                  <input type="hidden" name="postid" value="<?php echo get_the_ID(); ?>">
+                  <input type="hidden" name="action" value="addcart_prod">
+
+                   <a type="submit" name="add" class="orange" data-form="<?php echo get_the_ID(); ?>"><?php echo $product->get_price_html(); ?>  Buy Now</a>
+
+               </form>
+                      
+                 
+                    </div>
+                    <div class="col m12 s12 l12 xl6">
+                      <div class="block__img">
+
+                        <?php if(get_the_post_thumbnail_url()) {  ?>
+
+                           <img src="<?php echo get_the_post_thumbnail_url($loop->post->ID); ?>" alt="%s" />
+
+                        <?php }else {  ?>
+
+                           <img src="/wp-content/uploads/woocommerce-placeholder-600x600.png" src="<?= get_template_directory_uri(); ?>/img/" alt="demo" />
+
+                       <?php  } ?> 
+
+                      
+                      
+                      </div>
+                      <div class="block__right">
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh   euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. vulputate velit esse accumsan et iusto odio dignissim qui </p>
+                      </div>
+                    </div>
+                  </div>
+
+    
+             <?php }
+
+        } else {
+            // no posts found
+        }
+        /* Restore original Post Data */
+        wp_reset_postdata();
+      ?>
+       
+
+        
+        
         <div class="row">
           <div class="col m12 s12 l12 xl12">
             <h4 class="sub_title">Best Selling Products</h4>
           </div>
         </div>
+        
+        
         <div class="row">
-          <div class="col m6 s12 l4 xl4">
-            <div class="block__catygory">
-              <div class="catygory__img"><img src="<?= get_template_directory_uri(); ?>/img/shop__1_category_1.png" alt="logo_w"></div>
-              <div class="catygory__content">
-                <h3 class="title__catygory">Name of the Product</h3><span class="prise">$0.00</span>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p><a class="border_orange" href="javascript:;">View Item</a>
-              </div>
-            </div>
-          </div>
-          <div class="col m6 s12 l4 xl4">
-            <div class="block__catygory">
-              <div class="catygory__img"><img src="<?= get_template_directory_uri(); ?>/img/shop__1_category_2.png" alt="logo_w"></div>
-              <div class="catygory__content">
-                <h3 class="title__catygory">Name of the Product</h3><span class="prise">$0.00</span>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p><a class="border_orange" href="javascript:;">View Item</a>
-              </div>
-            </div>
-          </div>
-          <div class="col m6 s12 l4 xl4">
-            <div class="block__catygory">
-              <div class="catygory__img"><img src="<?= get_template_directory_uri(); ?>/img/shop__1_category_3.png" alt="logo_w"></div>
-              <div class="catygory__content">
-                <h3 class="title__catygory">Name of the Product</h3><span class="prise">$0.00</span>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p><a class="border_orange" href="javascript:;">View Item</a>
-              </div>
-            </div>
-          </div>
+         
+           <?php  
+             $args = array(
+                  'order' => 'DESC', // order filter  last post
+                  'post_type'  => 'product', // Post type category BLOG
+                  'posts_per_page' => 3, // echo show three post 
+              );
+              // The Query
+              $the_query = new WP_Query( $args );
+
+              // The Loop
+              if ( $the_query->have_posts() ) {
+
+                  while ( $the_query->have_posts() ) {
+                      $the_query->the_post(); 
+
+                      global $woocommerce;
+                      global $product;
+
+                      $order = wc_get_order( $order_id );   ?>
+
+                <div class="col m6 s12 l4 xl4">
+                  <div class="block__catygory">
+
+                    <div class="catygory__img">
+
+                       <a href="<?php echo get_the_permalink(); ?>">
+
+                           <?php if(get_the_post_thumbnail_url()){ ?>
+                            <img src="<?= get_the_post_thumbnail_url( get_the_ID(), 'singel-products' ); ?>" alt="face">
+                           <?php }else{ ?>
+                            <img src="<?= get_template_directory_uri(); ?>/img/shop__1_category_1.png" alt="logo_w">
+                           <?php } ?>
+
+                       </a>
+
+                    </div>
+                    <div class="catygory__content">
+                     
+                      <h3 class="title__catygory" title="<?php echo  get_the_title(); ?>">
+                      <?php  $rtextthe_title = strip_tags( get_the_title()); echo mb_substr( $rtextthe_title, 0, 23);  ?></h3><span class="prise"><?php echo $product->get_price_html(); ?></span>
+
+                       <?php $short_description = apply_filters( 'woocommerce_short_description', $post->post_excerpt ); ?>
+
+
+                     <?php if($short_description){ ?> 
+                        <p><?php $rtextthe_ertitle = strip_tags( $short_description); echo mb_substr( $rtextthe_ertitle, 0, 180); echo '...'; // echo $short_description; // WPCS: XSS ok. ?></p>
+                     <?php }else{  ?>
+                       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet elit sit amet elit.</p>
+                     <?php } ?>
+                      
+                      <a class="border_orange" href="<?php echo get_the_permalink(); ?>">View Item</a>
+                      
+                    </div>
+                  </div>
+                </div>
+
+
+                  <?php }
+
+              } else {
+                  echo '<p>Not posts found </p>';
+              }
+              /* Restore original Post Data */
+              wp_reset_postdata();
+            ?>
+
         </div>
+        
+        
+        
       </div>
     </section>
     <section class="section__ shop__2">
@@ -316,23 +492,29 @@ if(0){
               <?php 
                 
         // Get Woocommerce product categories WP_Term objects
-        $categories = get_terms( ['taxonomy' => 'product_cat'] );
+        $categories = get_terms( array(
+          'taxonomy' => 'product_cat',
+          'parent'=> 0
+          ) );
 
         // Getting a visual raw output
-      //  echo '<pre>'; print_r( $categories ); echo '</pre>';
-
+      
+        
         foreach ($categories as $categorie) {  ?>
                 
                 
                    <?php if( $categorie->name == 'Default'){  continue;  } ?>
                    <?php if( $categorie->name == 'Uncategorized'){  continue;  } ?>
 
+         
 
               
                 <li><a class="" href="<?php echo get_term_link($categorie); ?>" data-cat-id = "<?php echo   $categorie->term_id; ?>"><?php echo   $categorie->name; ?></a></li>
                 
               
-      <?php } ?>
+      <?php } 
+      
+      wp_reset_postdata(); ?>
                 
               
                 
@@ -341,17 +523,25 @@ if(0){
           </div>
           <div class="col m12 s12 l8 xl8">
             <div class="block__post">
+          <?php //print_r($categories); ?>
          
              <?php 
              $args = array(
-                  'child_of' => 877
+                  //'child_of' => $categories[0]->term_id
+                  'child_of' => 829
               );
               
               $terms = get_terms( 'product_cat', $args );
               
               if ( $terms ) {
-                foreach ( $terms as $term ) {  ?>
-                    <div class="post__"><div class="block__img__"><a class="title_link" href="<?php  echo get_term_link( $term ); ?>"><?php echo $term->slug; ?></a></div></div> 
+                foreach ( $terms as $term ) {   
+                   
+                               
+                   $image = get_field('category_images' , $term);
+              
+                    $smoll__imgurl = $image['sizes']['testimonials']; ?>
+
+                    <div class="post__" style="background: #e55d45 url('<?php echo $smoll__imgurl; ?>')  no-repeat center; "><div class="block__img__"><a class="title_link" href="<?php  echo get_term_link( $term ); ?>"><?php echo $term->slug; ?></a></div></div> 
                 <?php  }
               
               }

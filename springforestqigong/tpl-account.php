@@ -397,4 +397,4 @@ get_header(); ?>
     });
 });
 </script>
-<?php get_footer();
+<?php get_footer('not');

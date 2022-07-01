@@ -11,6 +11,16 @@ get_header();
 
 $postid = get_the_ID();
 
+global $wpdb;
+$course_id = get_the_id();
+
+$sql_query = "SELECT * FROM `wp_postmeta` WHERE `meta_key` = '_related_course' AND `meta_value` LIKE '%$course_id%'";
+$sql_query = $wpdb->prepare( $sql_query);
+$res = $wpdb->get_results($sql_query);
+
+$product_id = $res[0]->post_id;
+$product = wc_get_product( $product_id );
+
 ?>
      
     
@@ -61,9 +71,18 @@ $postid = get_the_ID();
           <div class="col m12 s12 l5 xl4">
             <div class="box__form"><a class="play" href="javascript:;"><img class="logo__img" src="<?= get_template_directory_uri(); ?>/img/video.png" alt="video"></a>
               <div class="blocl__prise">
-                <div class="price">$0.00<span>$0.00</span></div>
-                <div class="block">00% Off</div>
-              </div><a class="orange" href="javascript:;">Buy this Course</a>
+                
+                <div class="price">$<?php echo $product->get_regular_price(); ?>
+                <?php 
+                
+                  $discount = ((float)$product->get_regular_price() - (float)$product->get_sale_price())/(float)$product->get_regular_price()*100;
+                  ?>
+                  <span><?php echo ($product->get_sale_price()) ? '$'.$product->get_sale_price() : ''; ?></span>
+                
+              </div>
+                <?php echo($product->get_sale_price()) ?  '<div class="block">'.number_format($discount,0).'% Off</div>' : ''; ?>
+              
+              </div><a class="orange" href="<?php echo $product->add_to_cart_url(); ?>">Buy this Course</a>
               <ul class="list">
                 <li><span class="left">Duration</span><span class="right">0h 0m</span></li>
                 <li><span class="left">Lessons</span><span class="right">Number</span></li>

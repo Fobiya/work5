@@ -212,14 +212,22 @@ html(lang='en')
             
             
           .col.m12.s12.l2.xl2
+            .product-quantity(data-title='Quantity')
+              .quantity.my__quantity
+
+                input.minus.minus__icon.qty(type='button', value='-')
+                input.input-text.qty.text(type='number', step='1', min='0', name='cart[74061f08793737e9374dd85cd2233d3c][qty]', value='4', title='Qty', size='4')
+
+                input.plus.plus__icon.qty(type='button', value='+')
+
+
+   
+          .col.m12.s12.l2.xl2
             .product-price(data-title='Price')
               span.woocommerce-Price-amount.amount
                 bdi
                   span.woocommerce-Price-currencySymbol $
                   | 1,000.00
-   
-          .col.m12.s12.l2.xl2
-            div wdwdwd 2
         .row
           .col.m12.s12.l3.xl3
             .box__img

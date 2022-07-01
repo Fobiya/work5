@@ -39,7 +39,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 		<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
               
-              <li><a class="title" href="javascript:;">Billing details</a>
+              <li class="open"><a class="title" href="javascript:;">Shipping info</a>
                 <div class="tab__info">
                   <div class="block">
                     <div class="box__content">
@@ -49,8 +49,16 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                     </div>
                   </div>
                 </div>
+                        <div class="block__bot">
+                          <a class="border_orange"  data-next='1' href="javascript:;">Return</a>
+                          <a class="orange" data-next='2' href="javascript:;">Continue</a>
+                        </div>
+                
+                
               </li>
-              <li><a class="title" href="javascript:;">Additional information</a>
+              
+              
+              <li><a class="title" href="javascript:;">Shipping method</a>
                 <div class="tab__info">
                   <div class="block">
                     <div class="box__content">
@@ -60,6 +68,11 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                     </div>
                   </div>
                 </div>
+                <div class="block__bot">
+                  <a class="border_orange"  data-next='1' href="javascript:;">Return</a>
+                  <a class="orange"  data-next='3' href="javascript:;">Continue</a>
+                </div>
+                
               </li>
               
 		<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
@@ -70,7 +83,9 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
               
    	<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>           
               
-              <li><a class="title" href="javascript:;" id="order_review_heading"><?php esc_html_e( 'Your order', 'woocommerce' ); ?></a>
+              <li><a class="title" href="javascript:;" id="order_review_heading">
+               Payment method
+               <?php // esc_html_e( 'Your order', 'woocommerce' ); ?></a>
                 <div class="tab__info">
                   <div class="">
                     <div class="box__content">
@@ -82,6 +97,11 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                     </div>
                   </div>
                 </div>
+                        <div class="block__bot">
+                          <a class="border_orange" data-next='2' href="javascript:;">Return</a>
+                          <a class="orange" data-next='3' href="javascript:;">Continue</a>
+                        </div>
+                
               </li>
               
    	<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
@@ -89,42 +109,61 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
             </ul>
           </div>
           <div class="col m12 s12 l6 x6">
+           
+           
+           
             <div class="block__product">
               <ul class="list">
+               
+							
+                  <?php  global $woocommerce;
+                    foreach ($woocommerce->cart->get_cart() as $item): ?>
+
+                          <?php  $iditems = $item['product_id'];  ?>
+
                 <li>
-                  <div class="box__img"><span class="caun">10</span><img class="images" src="<?= get_template_directory_uri(); ?>/img/checkout__1_product.png" alt="images_1"></div>
+                  <div class="box__img">
+                    <span class="caun"><?php echo $item['quantity']; ?></span>
+                    
+                  <?php if(get_the_post_thumbnail_url($iditems)){ ?>
+                      <a href="<?php echo get_the_permalink( $iditems ); ?>">
+                    <img class="images" src="<?php echo get_the_post_thumbnail_url( $iditems ); ?>" data-src="<?php echo get_the_post_thumbnail_url( $iditems ); ?>" alt="" class="loaded" data-was-processed="true">
+                       </a>
+                  <?php }else{ ?>
+                        <a href="<?php echo get_the_permalink( $iditems ); ?>">
+                    <img class="images" src="<?= get_template_directory_uri(); ?>/img/images_chek.svg" alt="images_1">
+                       </a>
+                  <?php } ?>
+                    
+                    </div>
                   <div class="info">
-                    <h4 class="title">Name of the Product</h4>
+                    <h4 class="title"><?php echo get_the_title( $iditems ); ?></h4>
                     <p class="catygory">Title of the Product </p>
                   </div>
-                  <div class="price">$0.00</div>
+                  <div class="price">&#36; <?php echo get_post_meta( $iditems, '_price', true); ?></div>
                 </li>
-                <li>
-                  <div class="box__img"><span class="caun">6</span><img class="images" src="<?= get_template_directory_uri(); ?>/img/checkout__1_product.png" alt="images_1"></div>
-                  <div class="info">
-                    <h4 class="title">Name of the Product</h4>
-                    <p class="catygory">Title of the Product </p>
-                  </div>
-                  <div class="price">$0.00</div>
-                </li>
-                <li>
-                  <div class="box__img"><span class="caun">7</span><img class="images" src="<?= get_template_directory_uri(); ?>/img/checkout__1_product.png" alt="images_1"></div>
-                  <div class="info">
-                    <h4 class="title">Name of the Product</h4>
-                    <p class="catygory">Title of the Product </p>
-                  </div>
-                  <div class="price">$0.00</div>
-                </li>
+
+
+                 <?php
+                    endforeach; ?>
+               
+
+
+                
+                
               </ul>
               <ul class="shipping">
-                <li><span class="title">Amount</span><span class="num">#</span></li>
+                <li><span class="title">Amount</span><span class="num"><?php echo WC()->cart->get_cart_contents_count(); ?></span></li>
                 <li><span class="title">Discount</span><span class="num">%</span></li>
-                <li><span class="title">Shipping</span><span class="num">$</span></li>
+                <li><span class="title">Subtotal</span><span class="num"><?php echo  wc_cart_totals_subtotal_html(); ?></span></li>
               </ul>
               <ul class="total">
-                <li><span class="title">Total</span><span class="num">$</span></li>
+                <li><span class="title">Total</span><span class="num"><?php echo  wc_cart_totals_subtotal_html(); ?></span></li>
               </ul>
             </div>
+            
+            
+            
           </div>
         </div>
 

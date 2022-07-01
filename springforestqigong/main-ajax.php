@@ -186,8 +186,13 @@ $args = array(
 $terms = get_terms( 'product_cat', $args );
  
 if ( $terms ) {
-  foreach ( $terms as $term ) {  ?>
-      <div class="post__"><div class="block__img__"><a class="title_link" href="<?php  echo get_term_link( $term ); ?>"><?php echo $term->slug; ?></a></div></div> 
+  foreach ( $terms as $term ) {  
+             $image = get_field('category_images' , $term);
+
+          $smoll__imgurl = $image['sizes']['testimonials']; ?>
+
+          <div class="post__" style="background: #e55d45 url('<?php echo $smoll__imgurl; ?>')  no-repeat center; ">
+      <div class="block__img__"><a class="title_link" href="<?php  echo get_term_link( $term ); ?>"><?php echo $term->slug; ?></a></div></div> 
    <?php  }
  
 }
@@ -217,8 +222,15 @@ $response = '';
 	 $query = new WP_query($args);
  
   if ( $query->have_posts() ) {
-		 while ( $query->have_posts() ) : $query->the_post();  ?>
-     <div class="post__"><div class="block__img__"><a class="title_link" href="<?php  the_permalink(); ?>"><?php the_title(); ?></a></div></div> 
+		 while ( $query->have_posts() ) : $query->the_post(); 
+    
+         $image = get_field('category_images' , $term);
+
+          $smoll__imgurl = $image['sizes']['testimonials']; ?>
+
+          <div class="post__" style="background: #e55d45 url('<?php echo $smoll__imgurl; ?>')  no-repeat center; ">
+    
+         <div class="block__img__"><a class="title_link" href="<?php  the_permalink(); ?>"><?php the_title(); ?></a></div></div> 
           
  
   <?php endwhile; ?>
