@@ -244,12 +244,12 @@ $('.help').click(function(){
 //
 //  });  
   
-  $('.checkout__1 .box__bat li .block__bot a').click(function(){
+  $('.block__bot a').click(function(){
 
     var num_data = $(this).data('next');
     
-    console.log(num_data);
- $('.checkout__1 .box__bat li').removeClass('open');
+//    console.log(num_data);
+    $('.checkout__1 .box__bat li').removeClass('open');
     $('.checkout__1 .box__bat li:nth-child(' + num_data + ')').addClass('open');
 
   });
@@ -262,6 +262,17 @@ $('.help').click(function(){
   
   $('#wc-stripe-payment-request-wrapper').remove();
   $('#wc-stripe-payment-request-button-separator').remove();
+  
+  
+  
+    $('#createaccount').click(function(){
+  
+      $(this).toggleClass('checked__');
+    
+  }); 
+
+  
+  
       
 // ===========================================================  
 // Pixel Perfect MODUL
@@ -283,6 +294,7 @@ $('.help').click(function(){
           $('#images__back').toggleClass('front__end');
       });
     }); 
+  
 
 // =========================================================== 
 // END Pixel Perfect MODUL

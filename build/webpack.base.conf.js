@@ -285,6 +285,21 @@ module.exports = {
       hash: false,
       template: `${PATHS.src}/become-an-healer.pug`,
       filename: './become-an-healer.html'
+    }),            
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/in-person.pug`,
+      filename: './in-person.html'
+    }),      
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/quiz.pug`,
+      filename: './quiz.html'
+    }),              
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/events.pug`,
+      filename: './events.html'
     }),        
     
     
