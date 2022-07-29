@@ -32,19 +32,35 @@ get_header(); ?>
             <ul class="menu__item account_detals"> 
               <li><a class="<?php if ($subdomain[2] == ''){ echo 'active ';  } ?>"  href="/my-account/" >Dashboard</a></li>
               <li><a class="<?php if ($subdomain[2] == 'orders'){ echo 'active ';  } ?>" href="/my-account/orders/" >Orders</a></li>
-              <li><a href="javascript:;" data-item="3">Download</a></li>
+              <li><a class="<?php if ($subdomain[2] == 'downloads'){ echo 'active ';  } ?>" href="/my-account/downloads/" >Download</a></li>
               <li><a class="<?php if ($subdomain[2] == 'edit-address'){ echo 'active ';  } ?>" href="/my-account/edit-address/" >Addresses</a></li>
               <li><a class="<?php if ($subdomain[2] == 'payment-methods'){ echo 'active ';  } ?>" href="/my-account/payment-methods/" >Payment Methods</a></li>
               <li><a class="<?php if ($subdomain[2]== 'edit-account'){ echo 'active ';  } ?>" href="/my-account/edit-account/" >Account details</a></li>
               <hr>
-              <li><a href="javascript:;" data-item="7">Customer portal</a></li>
+              <li><a href="javascript:;" data-item="2">Customer portal</a></li> 
               <hr>
               <li><a class="logout"  href="<?php echo wp_logout_url( get_permalink() ); ?>">Logout</a></li>
             </ul>
           </div>
+          
           <div class="col m12 s12 l8 xl8">
 
-                    <?php the_content(); ?>
+            <?php the_content(); ?>
+
+            <div class="conteiner__my_items">
+              <!-- <div class="qigong_downloads active">
+                <h3 class="title">
+                  Downloads
+                </h3>
+              </div> -->
+                
+              <div class="qigong_portal active">
+                <h3 class="title">
+                 Customer portal
+                </h3>
+                <?php echo do_shortcode('[ameliacustomerpanel appointments=1 events=1]');?>
+              </div>
+            </div>
             
           </div>
         </div>
@@ -63,7 +79,28 @@ get_header(); ?>
             <div class="conteiner__my_items">
               <div class="qigoing_courses active">
                 <h3 class="title">Qigoing courses</h3>
-                <ul class="post__row">
+                  <ul class="post__row">
+                <?php 
+                
+                $product_ids = sfgGetBouthProducts(); //function placed in template-functions.php
+                foreach ($product_ids as $product_id){
+                  $product = wc_get_product($product_id);
+                  $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'single-post-thumbnail' );
+                  $product_image = ($image[0]) ? $image[0] : '/wp-content/uploads/woocommerce-placeholder-300x300.png';
+    
+                ?>
+                  <li>
+                    <div class="box__img"><a href="/products/<?= $product ->slug; ?>"><img class="images" src="<?= $product_image; ?>" alt="<?= $product ->name; ?>"></a></div>
+                    <div class="box__content">
+                      <h4 class="title_post"> <a href="/products/<?= $product ->slug; ?>"><?= $product ->name; ?></a></h4>
+                      <p><?= $product ->description; ?></p><a class="border_orange" href="/products/<?= $product ->slug; ?>">Watch</a>
+                    </div>
+                  </li>
+                <?php
+                }
+                
+                ?>
+                <?php /* markup example
                   <li>
                     <div class="box__img"><a href="javascript:;"><img class="images" src="<?= get_template_directory_uri(); ?>/img/courses_post.png" alt="account__1_post"></a></div>
                     <div class="box__content">
@@ -71,20 +108,8 @@ get_header(); ?>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p><a class="border_orange" href="javascript:;">Watch</a>
                     </div>
                   </li>
-                  <li>
-                    <div class="box__img"><a href="javascript:;"><img class="images" src="<?= get_template_directory_uri(); ?>/img/courses_post.png" alt="account__1_post"></a></div>
-                    <div class="box__content">
-                      <h4 class="title_post"> <a href="javascript:;">Pellentesque leo.</a></h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p><a class="border_orange" href="javascript:;">Watch</a>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="box__img"><a href="javascript:;"><img class="images" src="<?= get_template_directory_uri(); ?>/img/courses_post.png" alt="account__1_post"></a></div>
-                    <div class="box__content">
-                      <h4 class="title_post"> <a href="javascript:;">Pellentesque leo.</a></h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p><a class="border_orange" href="javascript:;">Watch</a>
-                    </div>
-                  </li>
+                  */
+                 ?>
                 </ul>
               </div>
               <div class="qigoing_mediations">
@@ -141,7 +166,7 @@ get_header(); ?>
               </div>
               <div class="event_recordings">
                 <h3 class="title">Event recordings</h3>
-                <?php echo do_shortcode('[ameliacustomerpanel appointments=1 events=1]');?>
+               
                 <ul class="post__">
                   <li>
                     <div class="box__img video"><a href="javascript:;"><img class="images" src="<?= get_template_directory_uri(); ?>/img/account__1_post.png" alt="account__1_post"></a></div>

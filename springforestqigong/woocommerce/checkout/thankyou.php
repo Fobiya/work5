@@ -46,16 +46,59 @@ defined( 'ABSPATH' ) || exit;
             <div class="block__confirmat"><img class="check" src="<?= get_template_directory_uri(); ?>/img/confirmation__1_check.svg" alt="menu">
               <h3 class="title">Your Order is Complete</h3>
               
-			<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+							<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+             <h2>Order detailes</h2>
+						 <div class="container">
+
+							<div class="row">
+								<div class="col m4 s4 l4 x4">Product</div>
+								<div class="col m4 s4 l4 x4">Qnt</div>
+								<div class="col m4 s4 l4 x4">Price</div>
+							</div>
+
+							<?php 
+							foreach ( $order->get_items() as $item_id => $item ) {
+				
+								$product = $item->get_product(); // see link above to get $product info
+								$product_name = $item->get_name();
+								$product_price = $product->get_regular_price();;
+								$quantity = $item->get_quantity();
+								$subtotal = $item->get_subtotal();
+								$total = $item->get_total();
+								$tax = $item->get_subtotal_tax();
+
+								?>
+								<div class="row">
+									<div class="col m4 s4 l4 x4"><?= $product_name; ?></div>
+									<div class="col m4 s4 l4 x4"><?= $quantity; ?></div>
+									<div class="col m4 s4 l4 x4"><?= $product_price; ?></div>
+								</div>
+
+								<?php
+								}
+								?>
+
+								<div class="row">
+									<div class="col ">Sub-total: <?= $subtotal; ?></div>
+								</div>
+								<div class="row">
+										<div class="col ">Tax: <?= ($tax) ? $tax : '0';  ?></div>
+								</div>
+								<div class="row">
+									<div class="col ">Total: <?= $total; ?></div>
+								</div>
+
+							</div>
+             	<a href="/my-account/view-order/<?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="order">#<?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
               
-              <a class="orange" href="javascript:;">Go Back Home</a>
+              <a class="orange" href="/">Go Back Home</a>
             </div>
           </div>
         </div>
       </div>
 
 
-
+        <?php if(0){ ?>
 			<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
 
 				<li class="woocommerce-order-overview__order order">
@@ -88,11 +131,16 @@ defined( 'ABSPATH' ) || exit;
 				<?php endif; ?>
 
 			</ul>
+			
+     <?php } ?> 
 
 		<?php endif; ?>
+		
+		      <?php if(0){ ?>
 
 		<?php do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() ); ?>
 		<?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
+		     <?php } ?>
 
 	<?php else : ?>
   
@@ -103,6 +151,8 @@ defined( 'ABSPATH' ) || exit;
             <div class="block__confirmat"><img class="check" src="<?= get_template_directory_uri(); ?>/img/confirmation__1_check.svg" alt="menu">
               <h3 class="title">Your Order is Complete</h3>
            		<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), null ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+              
+             <a href="/my-account/view-order/<?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" class="order">#<?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
               
               <a class="orange" href="javascript:;">Go Back Home</a>
             </div>

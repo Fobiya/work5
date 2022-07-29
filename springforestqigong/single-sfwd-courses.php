@@ -8,7 +8,7 @@
  */
 
 get_header(); 
-
+print_r($_POST);
 $postid = get_the_ID();
 
 global $wpdb;
@@ -20,6 +20,10 @@ $res = $wpdb->get_results($sql_query);
 
 $product_id = $res[0]->post_id;
 $product = wc_get_product( $product_id );
+$cartProductsIds = array();
+foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+   array_push($cartProductsIds, $cart_item['product_id']);
+}
 
 ?>
      
@@ -82,7 +86,34 @@ $product = wc_get_product( $product_id );
               </div>
                 <?php echo($product->get_sale_price()) ?  '<div class="block">'.number_format($discount,0).'% Off</div>' : ''; ?>
               
-              </div><a class="orange" href="<?php echo $product->add_to_cart_url(); ?>">Buy this Course</a>
+              </div>
+
+              
+
+                  <form id="<?php echo $product_id; ?>"  method='POST' action='javascript:void(null);'>
+
+                  <input type="hidden" id="product-quantity" name="quantity" value="1" min="1">
+
+
+                  <?php wp_nonce_field( 'addcart_post', 'addcart_post_nonce' );?>
+                  <input type="hidden" name="postid" value="<?php echo $product_id; ?>">
+                  <input type="hidden" name="action" value="addcart_prod">
+                
+                   <a type="submit" name="add" class="orange" data-form="<?php echo $product_id; ?>">Buy this Course</a>
+
+               </form>
+                  <?php /*
+                  if (!in_array($product_id, $cartProductsIds)){ ?>
+
+                
+                  <a class="orange" href="<?php echo $product->add_to_cart_url(); ?>">Buy this Course</a>
+                <?php } else { ?>
+                   <button class="orange" href="javascript();" disabled>In cart already</button>
+                  
+              <?php  }*/
+              ?>
+
+              
               <ul class="list">
                 <li><span class="left">Duration</span><span class="right">0h 0m</span></li>
                 <li><span class="left">Lessons</span><span class="right">Number</span></li>
@@ -325,5 +356,13 @@ $product = wc_get_product( $product_id );
         </div>
       </div>
     </section>
-    
+    <script>
+      // jQuery.ajax({
+      //   action: 'addcart_prod',
+
+      //   success: function (data){
+      //     console.log('fff');
+      //   }
+      // })
+    </script>
 <?php get_footer();

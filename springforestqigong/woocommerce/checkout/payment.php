@@ -47,8 +47,15 @@ if ( ! wp_doing_ajax() ) {
 		<?php wc_get_template( 'checkout/terms.php' ); ?>
 
 		<?php do_action( 'woocommerce_review_order_before_submit' ); ?>
+		
+		
 
-		<?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+        <div class="block__bot">
+          <a class="border_orange"  data-next='2' href="javascript:;">Return</a>
+          <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class=" orange" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+        </div>
+
+
 
 		<?php do_action( 'woocommerce_review_order_after_submit' ); ?>
 

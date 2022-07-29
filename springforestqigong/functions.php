@@ -349,16 +349,38 @@ function wpb_custom_billing_fields( $fields = array() ) {
 	return $fields;
 }
 
+add_shortcode( 'my_purchased_products', 'spring_products_bought_by_curr_user' );
+   
+function spring_products_bought_by_curr_user() {
+   
 
-//add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields_ek', 99 );
-//// Remove some fields from billing form
-//// Our hooked in function - $fields is passed via the filter!
-//// Get all the fields - https://docs.woothemes.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
-//function custom_override_checkout_fields_ek( $fields ) {
-//     unset($fields['billing']['billing_company']);
-//     unset($fields['billing']['billing_address_1']);
-//     unset($fields['billing']['billing_postcode']);
-//     unset($fields['billing']['billing_state']);
-//
-//     return $fields;
-//}
+    $current_user = wp_get_current_user();
+    if ( 0 == $current_user->ID ) return;
+
+    $customer_orders = get_posts( array(
+        'numberposts' => -1,
+        'meta_key'    => '_customer_user',
+        'meta_value'  => $current_user->ID,
+        'post_type'   => wc_get_order_types(),
+        'post_status' => array_keys( wc_get_is_paid_statuses() ),
+    ) );
+   
+
+    if ( ! $customer_orders ) return;
+    $product_ids = array();
+    foreach ( $customer_orders as $customer_order ) {
+        $order = wc_get_order( $customer_order->ID );
+        $items = $order->get_items();
+        foreach ( $items as $item ) {
+            $product_id = $item->get_product_id();
+            $product_ids[] = $product_id;
+        }
+    }
+    $product_ids = array_unique( $product_ids );
+    $product_ids_str = implode( ",", $product_ids );
+ 
+    return //$product_ids_str;
+		
+		do_shortcode("[products ids='$product_ids_str']");
+   
+}

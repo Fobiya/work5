@@ -55,7 +55,7 @@ get_header(); ?>
                   <li>
                     <div class="box__img"><a href="javascript:;"><img class="images" src="<?= get_template_directory_uri(); ?>/img/courses_post.png" alt="account__1_post"></a></div>
                     <div class="box__content">
-                      <h4 class="title_post"> <a href="javascript:;">Pellentesque leo.</a></h4>
+                      <h4 class="title_post"> <a href="javascript:;">Pellentesque leo1.</a></h4>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p><a class="border_orange" href="javascript:;">Watch</a>
                     </div>
                   </li>

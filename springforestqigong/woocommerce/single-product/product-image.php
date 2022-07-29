@@ -81,9 +81,10 @@ if(0){
 
     <div class="single__slider">
 
+
         <?php if ( $attachment_ids && $product->get_image_id() ) {
                 foreach ( $attachment_ids as $attachment_id ) {
-                  $image_url = wp_get_attachment_url( $attachment_id );  ?>
+                  $image_url = wp_get_attachment_url( $attachment_id, 'slider-big' );  ?>
                 <div><img src="<?php echo $image_url; ?>" alt="%s" /></div>
 
          <?php }
@@ -94,9 +95,10 @@ if(0){
   <div class="block_smoll">
     <div class="single__smoll_slider">
 
+
           <?php if ( $attachment_ids && $product->get_image_id() ) {
                   foreach ( $attachment_ids as $attachment_id ) {
-                    $image_url = wp_get_attachment_url( $attachment_id );  ?>
+                    $image_url = wp_get_attachment_url( $attachment_id, 'slider-smoll'  );  ?>
 
                   <div class="block__img"><img src="<?php echo $image_url; ?>" alt="%s" /></div>
 

@@ -95,21 +95,7 @@ global $product;
 
 $order = wc_get_order( $order_id );
 
-//foreach ( $order->get_items() as $item_id => $item ) {
-//   $product_id = $item->get_product_id();
-//   $variation_id = $item->get_variation_id();
-//   $product = $item->get_product();
-//   $name = $item->get_name();
-//   $quantity = $item->get_quantity();
-//   $subtotal = $item->get_subtotal();
-//   $total = $item->get_total();
-//   $tax = $item->get_subtotal_tax();
-//   $taxclass = $item->get_tax_class();
-//   $taxstat = $item->get_tax_status();
-//   $allmeta = $item->get_meta_data();
-//   $somemeta = $item->get_meta( '_whatever', true );
-//   $type = $item->get_type();
-//}  ?>
+  ?>
     
     
     
@@ -137,13 +123,13 @@ $order = wc_get_order( $order_id );
 
                   <?php if ( $attachment_ids && $product->get_image_id() ) {
                           foreach ( $attachment_ids as $attachment_id ) {
-                            $image_url = wp_get_attachment_url( $attachment_id, 'slider-big' );  ?>
-                          <div><img src="<?php echo $image_url; ?>" alt="%s" /></div>
+                            $image_urlbig = wp_get_attachment_url( $attachment_id, 'slider-big' );  ?>
+                          <div><img src="<?php echo $image_urlbig; ?>" alt="%s" /></div>
 
                    <?php }
                   }else if(get_the_post_thumbnail_url()) {  ?>
 
-                       <div><img src="<?php echo get_the_post_thumbnail_url($loop->post->ID); ?>" alt="%s" /></div>
+                       <div><img src="<?php echo get_the_post_thumbnail_url($loop->post->ID , 'slider-big'); ?>" alt="%s" /></div>
                        
                   <?php }else {  ?>
                   
@@ -161,9 +147,9 @@ $order = wc_get_order( $order_id );
 
                 	<?php if ( $attachment_ids && $product->get_image_id() ) { 
                             foreach ( $attachment_ids as $attachment_id ) {
-                              $image_url = wp_get_attachment_url( $attachment_id, 'slider-smoll' );  ?>
+                              $image_urlert = wp_get_attachment_url( $attachment_id, 'slider-smoll' );  ?>
                               
-                            <div class="block__img"><img src="<?php echo $image_url; ?>" alt="%s" /></div>
+                            <div class="block__img"><img src="<?php echo $image_urlert; ?>" alt="%s" /></div>
                             
                     <?php }
                     } ?>

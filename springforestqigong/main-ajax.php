@@ -250,4 +250,90 @@ $response = '';
 
 add_action( 'wp_ajax_me_get_posts', 'my_ajax_get_posts' );
 add_action( 'wp_ajax_nopriv_me_get_posts', 'my_ajax_get_posts' ); 
+
+
+// Healers page filter
   
+function my_ajax_get_healers(){
+
+  if($_POST['search'] && $_POST['search'] == 'searchHealers'){
+    $users_found = new WP_User_Query( array(
+    'search'         => '*'.esc_attr( $_POST['searchString'] ).'*',
+    'search_columns' => array(
+        'user_nicename',
+        'first_name',
+        'last_name',
+    ),
+) );
+$users = $users_found->get_results();
+    if ($users){
+      include( get_stylesheet_directory().'/template-parts/healers-list.php');
+    } else {
+      echo '<h2>No healers found</h2>';
+    }
+    die();
+  }
+
+
+  $tags = $_POST['eventType'];
+  $locations = $_POST['eventLocation'];
+  global $wpdb;
+
+  $eventIds = $wpdb->get_results($wpdb->prepare( "SELECT `eventId` FROM `wp_amelia_events_tags` WHERE `name` = '$tags'", ARRAY_A));
+  $events =  array_column($eventIds, 'eventId');
+  $eventTxt = '('.implode(', ', $events).')';
+ 
+  $healersByTags = $wpdb->get_results($wpdb->prepare( "SELECT `organizerId` FROM `wp_amelia_events` WHERE `id` IN $eventTxt GROUP BY `organizerId`", ARRAY_A));
+  $orginizersByEventId = array_column($healersByTags, 'organizerId');
+
+  $orginizersByLocationId = array();
+  
+  if($locations != ''){
+    $locationIds = $wpdb->get_results($wpdb->prepare( "SELECT `id` FROM `wp_amelia_locations` WHERE `name` LIKE '%$locations%' ", ARRAY_A));
+  
+
+  $locationsTxt = '('.implode(', ', array_column($locationIds, 'id')).')';
+
+  $healersByLocations = $wpdb->get_results($wpdb->prepare( "SELECT `userId` FROM `wp_amelia_providers_to_locations` WHERE `locationId` IN $locationsTxt ", ARRAY_A));
+  $orginizersByLocationId = array_column($healersByLocations, 'userId');
+};
+  if ($tags != '' && $locations != ''){
+    $ameliaUsers = array_intersect($orginizersByEventId, $orginizersByLocationId);
+  } else {
+    $ameliaUsers = array_unique(array_merge($orginizersByEventId,$orginizersByLocationId), SORT_REGULAR);
+  };
+
+  $ameliaUsersTxt = '('.implode(', ', $ameliaUsers).')';
+  $userIds = $wpdb->get_results($wpdb->prepare( "SELECT `externalId` FROM `wp_amelia_users` WHERE `id` IN $ameliaUsersTxt ", ARRAY_A));
+
+  $wpUsers = array_column($userIds, 'externalId'); 
+  if($wpUsers){
+
+  $args = array(
+    'orderby' => 'user_nicename',
+    'order'   => 'ASC',
+    'include' => $wpUsers,
+  );
+  $users = get_users( $args );
+ 
+  include( get_stylesheet_directory().'/template-parts/healers-list.php');
+  
+  } elseif ($tags == '' && $locations == '') {
+    $args = array(
+    'role'    => 'wpamelia-provider',
+    'orderby' => 'user_nicename',
+    'order'   => 'ASC',
+  );
+  $users = get_users( $args );
+
+  include( get_stylesheet_directory().'/template-parts/healers-list.php');
+
+  } else {
+
+echo '<h2>No healers found</h2>';
+
+  }
+die;
+}
+add_action( 'wp_ajax_get_ajax_healers', 'my_ajax_get_healers' );
+add_action( 'wp_ajax_nopriv_get_ajax_healers', 'my_ajax_get_healers' ); 

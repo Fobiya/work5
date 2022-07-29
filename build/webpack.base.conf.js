@@ -300,6 +300,22 @@ module.exports = {
       hash: false,
       template: `${PATHS.src}/events.pug`,
       filename: './events.html'
+    }),                
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/quiz-curriculum.pug`,
+      filename: './quiz-curriculum.html'
+    }),                    
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/certification.pug`,
+      filename: './certification.html'
+    }),        
+                        
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/group-leader.pug`,
+      filename: './group-leader.html'
     }),        
     
     

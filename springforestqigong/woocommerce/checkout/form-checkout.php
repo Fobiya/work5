@@ -97,10 +97,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                     </div>
                   </div>
                 </div>
-                        <div class="block__bot">
-                          <a class="border_orange" data-next='2' href="javascript:;">Return</a>
-                          <a class="orange" data-next='3' href="javascript:;">Continue</a>
-                        </div>
+
                 
               </li>
               
@@ -117,9 +114,12 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                
 							
                   <?php  global $woocommerce;
-                    foreach ($woocommerce->cart->get_cart() as $item): ?>
-
-                          <?php  $iditems = $item['product_id'];  ?>
+                    foreach ($woocommerce->cart->get_cart() as $cart_item_key => $item): ?>
+                          
+                          <?php  
+                          $_product = apply_filters( 'woocommerce_cart_item_product', $item['data'], $cart_item, $item_key );
+                          $iditems = $item['product_id'];  
+                          ?>
 
                 <li>
                   <div class="box__img">
@@ -140,7 +140,23 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                     <h4 class="title"><?php echo get_the_title( $iditems ); ?></h4>
                     <p class="catygory">Title of the Product </p>
                   </div>
-                  <div class="price">&#36; <?php echo get_post_meta( $iditems, '_price', true); ?></div>
+                  <div class="price"> 
+                    <?php //echo get_post_meta( $iditems, '_price', true); ?>
+
+                <?php echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.  ?>
+              </div>
+                  <div class="remove"><?php
+                                  echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                      'woocommerce_cart_item_remove_link',
+                                      sprintf(
+                                          '<a href="%s" class="remove delete__" aria-label="%s" data-product_id="%s" data-product_sku="%s">х</a>',
+                                          esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+                                          esc_html__( 'Remove this item', 'woocommerce' ),
+                                          esc_attr( $iditems ),
+                                          esc_attr( $_product->get_sku() )
+                                      ),
+                                      $cart_item_key
+                                  ); ?></div>
                 </li>
 
 

@@ -3,7 +3,25 @@
 * Template Name: Healer Overview Page*
 */
 get_header(); ?> 
+
+
+<?php
+  $url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+  $urlParts = parse_url($url);
+  $path = $urlParts['path'];
+  $subdomain = explode('/', $path);
+
+  $user = get_user_by( 'slug', $subdomain[2] );
+
+  $ava_url = esc_url( get_avatar_url( $user->ID ) );
+  $ava_default = get_template_directory_uri().'/img/no-avatar-350x350.jpg';
+
+  
+  $amelia_user = $wpdb->get_results($wpdb->prepare( "SELECT * FROM `wp_amelia_users` WHERE `externalId` = $user->ID", OBJECT));
+  $services_categories = $wpdb->get_results($wpdb->prepare( "SELECT `name` FROM `wp_amelia_categories`", OBJECT));
  
+  $user_max = 4;
+  ?>
     
     <section class="section__ healers-overview__1">
       <div class="container">
@@ -14,12 +32,13 @@ get_header(); ?>
                 <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a class="breadcrumbs__link" href="https://springforesstg.wpengine.com/" itemprop="item"><span itemprop="name">Home</span></a>
                   <meta itemprop="position" content="1">
                 </li>
-                <li class="breadcrumbs__current">Chunyi Lin</li>
+                <li class="breadcrumbs__current"><?= $user -> first_name; ?></li>
               </ul>
             </div>
           </div>
+          
           <div class="col m12 s12 l8 xl8">
-            <h2 class="title">Chunyi Lin</h2>
+            <h2 class="title"><?= $user -> first_name; ?></h2>
             <h3 class="desc">Qigong Grand Master</h3>
             <div class="box__information">
               <div class="reviews">Reviews</div>
@@ -54,7 +73,7 @@ get_header(); ?>
             </ul>
           </div>
           <div class="col m12 s12 l4 xl4">
-            <div class="block__autor"><img class="images" src="<?= get_template_directory_uri(); ?>/img/healers-overview__1_author.png" alt="overview__1_author"></div>
+            <div class="block__autor"><img class="images" src="<?= ($ava_url) ? $ava_url :  $ava_default ?>"></div>
           </div>
         </div>
         <div class="row">
@@ -202,27 +221,24 @@ get_header(); ?>
           </div>
         </div>
         <div class="row">
+          <?php 
+          $i = 2;
+          foreach ($services_categories as $service_category){?>
+
           <div class="col m12 s12 l6 xl4">
             <div class="post__info">
               <div class="box__img"><img src="<?= get_template_directory_uri(); ?>/img/healers-overview__1_post_info.png" alt="healers"></div>
-              <h4 class="title">In Person Qigong Healing</h4>
-              <p>Healer moves his or her hand several inches from your body to detect and to help remove energy blockages.</p><a class="orange" href="javascript:;">Make an Appointment</a>
+              <h4 class="title"><?php echo $service_category -> name; ?></h4>
+              <p>Healer moves his or her hand several inches from your body to detect and to help remove energy blockages.</p><a class="orange" href="javascript:;" data-fancybox="" data-src="#modal-<?= $i; ?>">Make an Appointment</a>
             </div>
           </div>
-          <div class="col m12 s12 l6 xl4">
-            <div class="post__info">
-              <div class="box__img"><img src="<?= get_template_directory_uri(); ?>/img/healers-overview__1_post_info.png" alt="healers"></div>
-              <h4 class="title">Qigong Distance Healing</h4>
-              <p>Healer moves his or her hand several inches from your body to detect and to help remove energy blockages.</p><a class="orange" href="javascript:;">Make an Appointment</a>
-            </div>
-          </div>
-          <div class="col m12 s12 l6 xl4">
-            <div class="post__info">
-              <div class="box__img"><img src="<?= get_template_directory_uri(); ?>/img/healers-overview__1_post_info.png" alt="healers"></div>
-              <h4 class="title">Meditation Healing</h4>
-              <p>Healer moves his or her hand several inches from your body to detect and to help remove energy blockages.</p><a class="orange" href="javascript:;">Make an Appointment</a>
-            </div>
-          </div>
+
+          <?php
+          $i++;
+          }
+          
+          ?>
+
         </div>
       </div>
       <div class="container">
@@ -269,34 +285,43 @@ get_header(); ?>
           </div>
         </div>
         <div class="row">
+          <?php 
+          
+          $args = array(
+            'role'    => 'wpamelia-provider',
+            'orderby' => 'user_nicename',
+            'order'   => 'ASC'
+          );
+
+          $users = get_users( $args );
+          $i = 0;
+          
+          foreach($users as $user_more){ 
+            if ($i == $user_max)  break;
+            
+            $user_id = $user_more -> ID;
+            if ($user_id == $user -> ID) continue;
+            $user_first_name = $user_more -> first_name;
+            $user_last_name = $user_more -> last_name;
+            $user_url = '/healer/'.$user_more -> user_nicename;
+            $ava_url = esc_url( get_avatar_url( $user_more->ID ) );
+            $ava_default = get_template_directory_uri().'/img/no-avatar-350x350.jpg';
+            $i++;
+            ?>
           <div class="col m6 s12 l3 xl3"> 
             <div class="post__healers">
-              <div class="bloc__img"><img src="<?= get_template_directory_uri(); ?>/img/healers__1_autor.png" alt="healers__1_autor"></div>
-              <h3 class="title">Chunyi Lin</h3>
-              <p class="desc">Qigong Master</p><a class="border_orange" href="javascript:;">Read more</a>
+              <div class="bloc__img">
+                <img src="<?= ($ava_url) ? $ava_url :  $ava_default ?>" alt="healers__1_autor" width="100%">
+              </div>
+              <h3 class="title"><?= $user_first_name.' '.$user_last_name; ?></h3>
+              <p class="desc">Qigong Master</p>
+              <a class="border_orange" href="<?= $user_url ; ?>">Read more</a>
             </div>
           </div>
-          <div class="col m6 s12 l3 xl3">
-            <div class="post__healers">
-              <div class="bloc__img"><img src="<?= get_template_directory_uri(); ?>/img/healers__1_autor.png" alt="healers__1_autor"></div>
-              <h3 class="title">Chunyi Lin</h3>
-              <p class="desc">Qigong Master</p><a class="border_orange" href="javascript:;">Read more</a>
-            </div>
-          </div>
-          <div class="col m6 s12 l3 xl3">
-            <div class="post__healers">
-              <div class="bloc__img"><img src="<?= get_template_directory_uri(); ?>/img/healers__1_autor.png" alt="healers__1_autor"></div>
-              <h3 class="title">Chunyi Lin</h3>
-              <p class="desc">Qigong Master</p><a class="border_orange" href="javascript:;">Read more</a>
-            </div>
-          </div>
-          <div class="col m6 s12 l3 xl3">
-            <div class="post__healers">
-              <div class="bloc__img"><img src="<?= get_template_directory_uri(); ?>/img/healers__1_autor.png" alt="healers__1_autor"></div>
-              <h3 class="title">Chunyi Lin</h3>
-              <p class="desc">Qigong Master</p><a class="border_orange" href="javascript:;">Read more</a>
-            </div>
-          </div>
+
+          <?php 
+        } ?>
+          
         </div>
       </div>
     </section>
@@ -306,10 +331,29 @@ get_header(); ?>
     <div class="modal__style" id="modal-1" style="display: none;">
       <div class="content_modal">
         
-          <?php echo do_shortcode( '[ameliabooking]' ); ?>
+          <?php echo do_shortcode( '[ameliabooking employee = '.$amelia_user[0]->id.']' ); ?>
 
       </div>
     </div>
+
+    <?php 
+    
+      for ($i = 2; $i<count($services_categories)+2; $i++){ ?>
+
+        <div class="modal__style" id="modal-<?= $i; ?>" style="display: none;">
+          <div class="content_modal">
+            
+              <?php $cat = $i-1; 
+              echo do_shortcode( '[ameliabooking category='.$cat.' employee = '.$amelia_user[0]->id.']' ); ?>
+
+          </div>
+        </div>
+
+  <?php  
+ 
+  }
+    ?>
+
 
     
 <?php get_footer();

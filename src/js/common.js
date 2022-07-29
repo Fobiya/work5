@@ -3,6 +3,17 @@ define(["jquery"], function($) {
   
 //  $('header').addClass('open');
   
+  
+  
+  var box__line = $('.box__line').data('ques');
+  
+//   console.log(box__line);
+  
+  
+          var scrollPercent = 100 * box__line / 40;
+
+        $('.box__line>span').css('width', scrollPercent + "%");
+  
  
   $('.home__5 .list a[data-num]').click(function(){
 
@@ -237,14 +248,32 @@ $('.help').click(function(){
 
   });  
   
-//  $('.checkout__1 .box__bat li .title').click(function(){
-//
-//    $('.checkout__1 .box__bat li').removeClass('open');
+  $('.checkout__1 .box__bat li .title').click(function(){
+
+    $('.checkout__1 .box__bat li').removeClass('open');
+    $(this).parent().toggleClass('open');
+
+  });  
+  
+
+  
+//  $('.checkout__1 .box__bat li a').click(function(){
+//  
 //    $(this).parent().toggleClass('open');
-//
-//  });  
+//  });
+  
   
   $('.block__bot a').click(function(){
+
+    var num_data = $(this).data('next');
+    
+//    console.log(num_data);
+    $('.checkout__1 .box__bat li').removeClass('open');
+    $('.checkout__1 .box__bat li:nth-child(' + num_data + ')').addClass('open');
+
+  });  
+  
+  $('#order_review .block__bot a').click(function(){
 
     var num_data = $(this).data('next');
     
@@ -270,6 +299,47 @@ $('.help').click(function(){
       $(this).toggleClass('checked__');
     
   }); 
+
+    $('.block__map .left__ .list li a').click(function(){
+        
+        $('.block__map .left__ .list li').removeClass('chek');
+  
+      $(this).parent().addClass('chek');
+    
+  }); 
+  
+    $('.block__map .top .list li a').click(function(){
+        
+        $('.block__map .top .list li a').removeClass('chek');
+  
+      $(this).addClass('chek');
+    
+  });   
+  
+    $('a.more__open').click(function(){
+        
+        $(this).parent().parent().addClass('open');
+  }); 
+    
+    $('a.more__close').click(function(){
+        
+        $(this).parent().parent().parent().removeClass('open');
+  }); 
+      
+    $('a.link_open').click(function(){
+        
+        $(this).parent().toggleClass('open');
+  }); 
+  
+    $('.box__catygory ul li').hover(function(){
+      
+        let num_data = $(this).data('img');
+      
+      $('.box__catygory .block__ .images').attr('src' , num_data );
+      
+      
+  });
+  
 
   
   

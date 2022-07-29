@@ -144,7 +144,7 @@ if(0){
           </div>
           <div class="col m12 s12 l6 xl6">
             <h1 class="title"><?php echo  single_cat_title( '', false ); ?></h1>
-
+<?php //print_r($term); ?>
             <?php if(get_field('discription_', $term) ){ ?>
            
               <p><?php the_field('discription_', $term); ?></p>
@@ -158,7 +158,7 @@ if(0){
             
             <?php if(get_field('title_cat_', $term) ){ ?>
            
-              <h2 class="title"><?php the_field('title_cat_', $term); ?></h2>
+              <h2 class="title">ff<?php the_field('title_cat_', $term); ?></h2>
             <?php } ?>
 
             <?php if(get_field('sub_discription_', $term) ){ ?>
@@ -177,11 +177,19 @@ if(0){
        $args = array(
             'order' => 'DESC', // order filter  last post
             'post_type'  => 'product', // Post type category BLOG
-            'posts_per_page' => 12, // echo show three post 
+            'posts_per_page' => 12,// echo show three post 
+            'tax_query'      => array(
+              array(
+                'taxonomy'    => 'product_cat',
+                'field'       => 'term_id',
+                'terms'       => $term->term_id,
+                'include_children'  => true,
+              )
+            ), 
         );
         // The Query
         $the_query = new WP_Query( $args );
-
+       // print_r($the_query);
         // The Loop
         if ( $the_query->have_posts() ) {
 
