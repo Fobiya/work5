@@ -19028,6 +19028,93 @@ border-radius: 10px;
 }
 
 
+.paggination{
+  display: flex;
+
+  @include wid(991) {  justify-content: center;  }
+
+  ul{
+
+
+
+    display: flex;
+    li{
+
+      margin-right: 12px;
+      @include wid(991) {  margin-right: 6px; margin-left: 6px;  }
+
+      &>a,  &>span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+          width: 44px;
+          height: 44px;
+
+          background: #FFFFFF;
+          border: 1px solid #687E7B;
+
+          color: #0D4037;
+          border-radius: 50%;
+
+          font: 400 20px/1.2em var(--l);
+
+        &.active,&:hover,&.current{
+          background: #E55D45;
+          border: 1px solid #E55D45;
+          color: #fff;
+        }
+
+        &.prev{
+            @extend %bef-aft;
+
+            background: #FFFFFF url(../img/ar_left.svg) no-repeat center;
+
+            width: 44px;
+            height: 44px;
+            border: 1px solid #687E7B;
+
+            color: #0D4037;
+            border-radius: 50%;
+
+            font-size: 0 !important;
+
+          &.active,&:hover{
+            background: #E55D45;
+            border: 1px solid #E55D45;
+            color: #fff;
+          }
+
+        }
+
+        &.next{
+            @extend %bef-aft;
+
+            background: #FFFFFF url(../img/ar_right.svg) no-repeat center;
+
+            width: 44px;
+            height: 44px;
+            border: 1px solid #687E7B;
+
+            color: #0D4037;
+            border-radius: 50%;
+          
+            font-size: 0 !important;
+
+          &.active,&:hover{
+            background: #E55D45;
+            border: 1px solid #E55D45;
+            color: #fff;
+          }
+
+        }
+
+      }
+
+    }
+  }
+}
+
 
 // ===========================================================
 // FORM STYLE
