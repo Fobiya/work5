@@ -254,6 +254,13 @@ $('.help').click(function(){
     $(this).parent().toggleClass('open');
 
   });  
+    
+  $('.create-an-event__1 .box__bat li .title').click(function(){
+
+    $('.checkout__1 .box__bat li').removeClass('open');
+    $(this).parent().toggleClass('open');
+
+  });  
   
 
   
@@ -340,8 +347,47 @@ $('.help').click(function(){
       
   });
   
-
   
+    $('.create-an-event__1 .box__section a').click(function(){
+      
+      $(this).toggleClass('open');
+      $(this).parent().parent().toggleClass('open');
+
+  });
+  
+  
+  
+    $('.create-an-event__1 .tab__ .overview').click(function(){
+      
+      
+      $('.tab__ a').removeClass('active');
+      $(this).addClass('active');
+      
+      
+      $('.tab__content>div').removeClass('open');
+      $('.tab__content>div:nth-child(1)').addClass('open');
+
+    });
+  
+    $('.create-an-event__1 .tab__ .faq').click(function(){
+      
+      $('.tab__ a').removeClass('active');
+      $(this).addClass('active');
+      
+      $('.tab__content>div').removeClass('open');
+      $('.tab__content>div:nth-child(2)').addClass('open');
+
+    });
+  
+    $('.create-an-event__1 .tab__ .add').click(function(){
+      
+      $('.tab__ a').removeClass('active');
+      $(this).addClass('active');
+      
+      $('.tab__content>div').removeClass('open');
+      $('.tab__content>div:nth-child(3)').addClass('open');
+
+    });
   
       
 // ===========================================================  
@@ -927,7 +973,7 @@ for(let div of document.querySelectorAll('footer')){
 
 
   
-    $('.home__4 .next__').click(function() { 
+  $('.home__4 .next__').click(function() { 
     $slider__4.slick('slickNext');
   });
  
@@ -1002,6 +1048,14 @@ for(let div of document.querySelectorAll('footer')){
   });
  
   $('.home__6  .prev__').click(function() {
+    $slider__6.slick('slickPrev');
+  });
+  
+  $('.home__7 .next__').click(function() { 
+    $slider__6.slick('slickNext');
+  });
+ 
+  $('.home__7  .prev__').click(function() {
     $slider__6.slick('slickPrev');
   });
     

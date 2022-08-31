@@ -317,6 +317,20 @@ module.exports = {
       template: `${PATHS.src}/group-leader.pug`,
       filename: './group-leader.html'
     }),        
+            
+                        
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/landing-page.pug`,
+      filename: './landing-page.html'
+    }),        
+                
+                        
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PATHS.src}/create-an-event.pug`,
+      filename: './create-an-event.html'
+    }),        
     
     
     
